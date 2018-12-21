@@ -291,12 +291,12 @@ int main ()
 		}
 		else if (choix == 6) //Ecriture dans un fichier
 		{
-			
+			catalogue -> EcritureDansUnFichier();
 		}
 		else if (choix == 7) //Lecture dans un fichier
 		{
 			cout << "Indiquez le chemin d'accès du fichier dans lequel vous voulez récupérer les trajets : "<<endl;
-			string nomFichier; // /home/acroc/Documents/TP2C++2/TP2C++_VersionFinale/Test.txt
+			string nomFichier; // ./Test.txt
 			cin >> nomFichier;
 			//catalogue->LectureToutTrajetFichier(nomFichier);
 			

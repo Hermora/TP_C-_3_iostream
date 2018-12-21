@@ -63,6 +63,8 @@ class Catalogue
             //   - caseSuivante l'indice de la case suivante à complétée dans le tableau enchainementsPossible
 	    //   - contientTrajet compte le nombre de possibilités de trajets
 	    // Contrat : aucun
+	    
+	    void EcritureDansUnFichier();
 
 	    void LectureToutTrajetFichier(string nomFichier);
 	    //Mode d'emploi : Recupère les trajets qui sont dans le fichier   

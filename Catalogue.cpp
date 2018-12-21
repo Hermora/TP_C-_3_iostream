@@ -28,7 +28,59 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
+void Catalogue::EcritureDansUnFichier()
+{
+	cout << "voulez vous créer un fichier (1) ou écrire dans un fichier déjà existant (2)?"<<endl;
+	int choix;
+	string nomFichier;
+	while (cin.fail() || choix!=1 || choix!=2)
+	{
+		cout << "Erreur, entrez un nombre valide :";
+		cin.clear();
+		cin.ignore(256,'\n');
+		cin >> choix;
+		cout<<""<<endl;
+	}
+	if (choix==1)
+	{
+		cout << "Comment vouler vous nommez votre fichier? (avec l'extention : .txt ...)"<<endl;
+		cin >> nomFichier;
+		ofstream fichier;
+		fichier.open(nomFichier);
+		//faire la verif que l'ouverture a fonctionne
 
+		fichier.close();
+
+	}
+	else if (choix == 2)
+	{
+		cout << "entrez le nom de votre fichier avec son chemin d'accès :" << endl;
+		cin >> nomFichier;
+		ofstream fichier;
+		cout << "voulez vous écrire à la fin du fichier(1) ou effacer le contenu déjà existant pour écrire par dessus(2)?" << endl;
+		int choice;
+		cin >> choice;
+
+		while (cin.fail() || choice!=1 || choice!=2)
+		{
+			cout << "Erreur, entrez un nombre valide :";
+			cin.clear();
+			cin.ignore(256,'\n');
+			cin >> choice;
+			cout<<""<<endl;
+		}
+
+		if (choice == 1)
+			fichier.open(nomFichier,ios::app);
+		else if (choice == 2)
+			fichier.open(nomFichier,ios::trunc);
+
+		//faire la verif de l'ouverture du fichier
+
+		fichier.close();
+	}
+
+}
 void Catalogue::LectureTypeTrajetFichier(string nomFichier, string type)
 // Algorithme :
 {
