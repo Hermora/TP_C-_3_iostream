@@ -9,6 +9,7 @@
 
 //---------- Réalisation du module <TestTrajet> (fichier TestTrajet.cpp) ---------------
 
+#define _CRT_SECURE_NO_WARNINGS
 /////////////////////////////////////////////////////////////////  INCLUDE
 //-------------------------------------------------------- Include système
 using namespace std;
@@ -203,6 +204,17 @@ static void affichageMenuPrincipal()
 	cout << "Que souhaitez-vous faire ? : ";
 }
 
+static void affichageMenuLecture()
+{
+	cout << " *********************************   MENU LECTURE   ***************************** " << endl;
+	cout << "- 1 pour récupérer tous les trajets du fichier" << endl;
+	cout << "- 2 pour récupérer les trajets simples ou composés du fichier" << endl;
+	cout << "- 3 pour récupérer les trajets selon la ville de départ et/ou la ville d'arrivée du fichier" << endl;
+	cout << "- 4 pour récupérer les trajets compris dans un intervalle présent dans le fichier" << endl;
+	cout << "- 0 pour retourner au menu principal" << endl;
+	cout << " ********************************************************************************* " << endl;
+	cout << "Quel type de récupération souhaitez-vous faire? : ";
+}
 
 int main ()
 // Algorithme :
@@ -213,7 +225,7 @@ int main ()
 	int choix;
 
 
-	//Menu proposé à l'utilisateur
+	//Menu principal proposé à l'utilisateur
 	affichageMenuPrincipal();
 
 	cin >> choix;
@@ -268,7 +280,7 @@ int main ()
 		{
 			char * villeDepart = new char [TAILLE_CHAR_MAX];
 			char * villeArrivee = new char [TAILLE_CHAR_MAX];
-		    	Trajet ** enchainementsPossible = new Trajet * [TAILLE_TRAJET_MAX];
+		    Trajet ** enchainementsPossible = new Trajet * [TAILLE_TRAJET_MAX];
 			int caseSuivante = 0;
 			int contientTrajet = 0;
 
@@ -291,30 +303,25 @@ int main ()
 		}
 		else if (choix == 6) //Ecriture dans un fichier
 		{
-			catalogue -> EcritureDansUnFichier();
+			catalogue->EcritureDansUnFichier();
 		}
 		else if (choix == 7) //Lecture dans un fichier
 		{
 			cout << "Indiquez le chemin d'accès du fichier dans lequel vous voulez récupérer les trajets : "<<endl;
-			string nomFichier; // ./Test.txt
-			cin >> nomFichier;
-			//catalogue->LectureToutTrajetFichier(nomFichier);
+			string cheminFichier; // /home/acroc/Documents/TP2C++2/TP2C++_VersionFinale/Test.txt
+			cin >> cheminFichier;
 			
 			int choixLect;
 			cout<<endl;
 
-			cout << " *********************************   MENU LECTURE   ***************************** " << endl;
-			cout << "- 1 pour récupérer tous les trajets du fichier" << endl;
-			cout << "- 2 pour récupérer les trajets simples ou composés du fichier" << endl;
-			cout << "- 3 pour récupérer les trajets selon la ville de départ et/ou la ville d'arrivée du fichier" << endl;
-			cout << "- 4 pour récupérer les trajets compris dans un intervalle présent dans le fichier" << endl;
-			cout << "- 0 pour retourner au menu principal" << endl;
-			cout << " ********************************************************************************* " << endl;
-			cout << "Quel type de récupération souhaitez-vous faire? : ";
+			//Menu lecture proposé à l'utilisateur
+			affichageMenuLecture();
 
 			cin >> choixLect;
 			cout << "" << endl;
 			
+			//Si l'utilisateur ne rentre pas un entier, il y a une erreur
+			//on lui demande donc de nouveau l'option qu'il souhaite
 			while(cin.fail())
 			{
 				cout<<"Erreur, entrez un nombre : ";
@@ -324,42 +331,111 @@ int main ()
 				cout<<""<<endl;
 			}
 			
+			//Tant que l'utilisateur veut récupérer des trajets du même fichier
 			while(choixLect!=0)
 			{
-				while(cin.fail())
-				{
-					cout<<"Erreur, entrez un nombre : ";
-					cin.clear();
-					cin.ignore(256,'\n');
-					cin>>choixLect;
-					cout<<""<<endl;
-				}
-
 				if (choixLect == 1) //Lecture generale dans un fichier
 				{
-					catalogue->LectureToutTrajetFichier(nomFichier);
-					cout << "Succès de la récupération des trajets présents dans le fichier" << endl;
+					int nbTrajet = catalogue->LectureToutTrajetFichier(cheminFichier);
+					//Détail des paramètres dans le .h correspondant
+
+					cout << "" << endl;
+					if (nbTrajet > 1)
+					{
+						cout << nbTrajet << " trajets ont été ajouté au catalogue" << endl;
+					}
+					else
+					{
+						cout << nbTrajet << " trajet a été ajouté au catalogue" << endl;
+					}
 						
 				}
-				else if (choixLect == 2) //Lecture selon type trajet dans un fichier
+				else if (choixLect == 2) //Lecture selon un type de trajet dans un fichier
 				{	
 					string type;
 					
 					cout << " - Tapez S pour récupérer uniquement les trajets simples " << endl;
 					cout << " - Tapez C pour récupérer uniquement les trajets composés " << endl;
+				
 					cout<< "Choisissez une option : ";
 					cin>>type;
-					catalogue->LectureTypeTrajetFichier(nomFichier,type);					
+					cout << "" << endl;
+					int nbTrajet = catalogue->LectureChoixTypeTrajetFichier(cheminFichier,type);
+					//Détail des paramètres dans le .h correspondant
+					
+					if (nbTrajet > 1)
+					{
+						cout << nbTrajet << " trajets ont été ajouté au catalogue" << endl;
+					}
+					else
+					{
+						cout << nbTrajet << " trajet a été ajouté au catalogue" << endl;
+					}
 						
 				}
-				else if (choixLect == 3) //Lecture des trajets dans un fichier selon ville d'arrivé et/ou de depart 
+				else if (choixLect == 3) //Lecture des trajets dans un fichier selon la ville d'arrivée et/ou de depart 
 				{
-					
+					string option;
+					cout << " - Tapez D pour récupérer les trajets suivant leur ville de départ " << endl;
+					cout << " - Tapez A pour récupérer les trajets suivant leur ville d'arrivée " << endl;
+					cout << " - Tapez DA pour récupérer les trajets suivant leurs villes de départ et d'arrivée" << endl;
+					cout << "Choisissez une option : ";
+
+					cin >> option;
+					cout << "" << endl;
+					int nbTrajet = catalogue->LectureChoixVilleTrajetFichier(cheminFichier, option);
+					//Détail des paramètres dans le .h correspondant
+
+					cout << "" << endl;
+					if (nbTrajet > 1)
+					{
+						cout << nbTrajet << " trajets ont été ajouté au catalogue" << endl;
+					}
+					else
+					{
+						cout << nbTrajet << " trajet a été ajouté au catalogue" << endl;
+					}
 				}
 				else if (choixLect == 4) //Lecture dans un fichier d'une selection de trajets compris dans un intervalle
 				{
+					int borneI, borneS;
+					cout << "- Indiquez l'indice du premier trajet que vous souhaitez récupérer : ";
+					cin >> borneI;
+					cout << "" << endl;
+
+					while (cin.fail())
+					{
+						cout << "Erreur, entrez un nombre : ";
+						cin.clear();
+						cin.ignore(256, '\n');
+						cin >> borneI;
+						cout << "" << endl;
+					}
+
+					cout << "- Indiquez l'indice du dernier trajet que vous souhaitez récupérer : ";
+					cin >> borneS;
+					cout << "" << endl;
+
+					while (cin.fail())
+					{
+						cout << "Erreur, entrez un nombre : ";
+						cin.clear();
+						cin.ignore(256, '\n');
+						cin >> borneS;
+						cout << "" << endl;
+					}
+
+					int nbTrajet = catalogue->LectureIntervalleTrajetFichier(cheminFichier,borneI,borneS);
+					//Détail des paramètres dans le .h correspondant
 					
-						
+					if (nbTrajet > 1)
+					{
+						cout << nbTrajet << " trajets ont été ajouté au catalogue" << endl;
+					}
+					else
+					{
+						cout << nbTrajet << " trajet a été ajouté au catalogue" << endl;
+					}
 				}
 				else  //Si la donnée entrée n'est pas correcte
 				{
@@ -367,8 +443,23 @@ int main ()
 				}
 				
 				cout<<""<<endl;
-				cout << "Quel type de récupération souhaitez-vous faire? : ";
+				
+				//Menu lecture proposé à l'utilisateur
+				affichageMenuLecture();
+				
 				cin >> choixLect;
+				cout << "" << endl;
+
+				//Si la saisie de l'utilisateur n'est pas un entier
+				//On lui demande de ressaisir une option 
+				while (cin.fail())
+				{
+					cout << "Erreur, entrez un nombre : ";
+					cin.clear();
+					cin.ignore(256, '\n');
+					cin >> choixLect;
+					cout << "" << endl;
+				}
 			}
 			cout<<"Retour au menu principal"<<endl;
 
@@ -379,7 +470,7 @@ int main ()
 		}
 
 		cout << "" << endl;
-		//Menu proposé à l'utilisateur
+		//Menu principal proposé à l'utilisateur
 		affichageMenuPrincipal();
 		
 		//Choix de l'option
