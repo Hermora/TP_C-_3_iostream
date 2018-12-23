@@ -1,5 +1,5 @@
 /*************************************************************************
-                           TrajetCompose  -  Classe decrivant les trajets composes
+                           Catalogue  -  Classe decrivant le catalogue
                              -------------------
     début                : 20/11/2018
     copyright            : (C) 2018 par Andréa CROC and Sophie LABOUCHEIX
@@ -8,7 +8,7 @@
 
 
 //---------- Réalisation de la classe <Catalogue> (fichier Catalogue.cpp) ------------
-
+#define _CRT_SECURE_NO_WARNINGS
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
@@ -21,29 +21,31 @@ using namespace std;
 //------------------------------------------------------ Include personnel
 #include "Catalogue.h"
 
-
 //------------------------------------------------------------- Constantes
 #define TAILLE 100
 #define TAILLE_CHAR_MAX 100
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
+
 void Catalogue::EcritureDansUnFichier()
+//Algorithme :
 {
-	cout << "voulez vous créer un fichier (1) ou écrire dans un fichier déjà existant (2)?"<<endl;
+	cout << "voulez vous créer un fichier (1) ou écrire dans un fichier déjà existant (2)?" << endl;
 	int choix;
+	cin >> choix;
 	string nomFichier;
-	while (cin.fail() || choix!=1 || choix!=2)
+	while (cin.fail() && choix != 1 && choix != 2)
 	{
 		cout << "Erreur, entrez un nombre valide :";
 		cin.clear();
-		cin.ignore(256,'\n');
+		cin.ignore(256, '\n');
 		cin >> choix;
-		cout<<""<<endl;
+		cout << "" << endl;
 	}
-	if (choix==1)
+	if (choix == 1)
 	{
-		cout << "Comment vouler vous nommez votre fichier? (avec l'extention : .txt ...)"<<endl;
+		cout << "Comment vouler vous nommez votre fichier? (avec l'extention : .txt ...)" << endl;
 		cin >> nomFichier;
 		ofstream fichier;
 		fichier.open(nomFichier);
@@ -61,135 +63,534 @@ void Catalogue::EcritureDansUnFichier()
 		int choice;
 		cin >> choice;
 
-		while (cin.fail() || choice!=1 || choice!=2)
+		while (cin.fail() || choice != 1 || choice != 2)
 		{
 			cout << "Erreur, entrez un nombre valide :";
 			cin.clear();
-			cin.ignore(256,'\n');
+			cin.ignore(256, '\n');
 			cin >> choice;
-			cout<<""<<endl;
+			cout << "" << endl;
 		}
 
 		if (choice == 1)
-			fichier.open(nomFichier,ios::app);
+			fichier.open(nomFichier, ios::app);
 		else if (choice == 2)
-			fichier.open(nomFichier,ios::trunc);
+			fichier.open(nomFichier, ios::trunc);
 
 		//faire la verif de l'ouverture du fichier
 
 		fichier.close();
 	}
 
-}
-void Catalogue::LectureTypeTrajetFichier(string nomFichier, string type)
-// Algorithme :
+}// -- Fin de EcritureDansUnFichier
+
+int Catalogue::LectureIntervalleTrajetFichier(string cheminFichier, int borneInf, int borneSup)
+//Algorithme :
+//On gère les erreurs liées au chemin d'accès du fichier
+//Et on ajoute au catalogue les trajets dont le numéro fait partie de l'intervalle 
+//dont les bornes sont données en paramètre
 {
 	ifstream fic;
-	fic.open(nomFichier.c_str());
-	while(!fic)
-	{
-		cout<<"Erreur à l'ouverture du fichier, entrez de nouveau le chemin :"<<endl;
-		cin>>nomFichier;
-		fic.open(nomFichier.c_str()); //Ne cree pas de fichier permet juste d'en ouvrir un existant
-	}
+	fic.open(cheminFichier.c_str());
 	
-	while(type!="S" || type!="C")
+	//si le chemin d'accès donné ne permet pas l'ouverture du fichier
+	//on demande de nouveau le chemin d'accès au fichier
+	while (!fic) 
 	{
-		cout << " - Tapez S pour récupérer uniquement les trajets simples " << endl;
-		cout << " - Tapez C pour récupérer uniquement les trajets composés " << endl;
-		cin>>type;
+		cout << "Erreur à l'ouverture du fichier, entrez de nouveau le chemin :" << endl;
+		cin >> cheminFichier;
+		cout << "" << endl;
+		fic.open(cheminFichier.c_str()); 
 	}
 
-	while(!fic.eof())
+	int comptTrajet = 0;
+
+	while (!fic.eof()) //Tant qu'on n'est pas à la fin du fichier, on continue
+	{
+		string ligne, borneInter;
+		int borneInt;
+
+		getline(fic, borneInter, ',');
+		getline(fic, ligne, ',');
+
+		borneInt = atoi(borneInter.c_str());
+
+		if (ligne == "C") //Si le trajet qu'on lit dans le fichier est un trajet composé
+		{
+			string villeDep;
+			string villeArr;
+
+			getline(fic, villeDep, ',');
+			getline(fic, villeArr, ',');
+
+			// On crée le trajet composé
+			Trajet * trajetCompose = new TrajetCompose(villeDep.c_str(), villeArr.c_str());
+
+			string nbLigne;
+			getline(fic, nbLigne);
+			int nbTraj = atoi(nbLigne.c_str());
+
+			//On rajoute des trajets simples au trajet composé
+			for (int i = 0; i < nbTraj; i++)
+			{
+				getline(fic, ligne, ',');
+
+				if (ligne == "S")
+				{
+					string villeD;
+					string villeA;
+					string moyenT;
+
+					getline(fic, villeD, ',');
+					getline(fic, villeA, ',');
+					getline(fic, moyenT);
+
+					Trajet * trajetS = new TrajetSimple(villeD.c_str(), villeA.c_str(), moyenT.c_str());
+					trajetCompose->AjoutTrajet(trajetS);
+				}
+			}
+			//On ajoute le trajet composé au catalogue que si le numéro du trajet fait partie de l'intervalle des trajets 
+			if (borneInt >= borneInf && borneInt <= borneSup)
+			{
+				AjouterTrajet(trajetCompose);
+				comptTrajet++;
+			}
+		}
+		else if (ligne == "S") //Si le trajet qu'on lit dans le fichier est un trajet simple
+		{
+			string villeDep;
+			string villeArr;
+			string moyenTransp;
+
+			getline(fic, villeDep, ',');
+			getline(fic, villeArr, ',');
+			getline(fic, moyenTransp);
+
+			//On crée le trajet simple
+			Trajet * trajetSimple = new TrajetSimple(villeDep.c_str(), villeArr.c_str(), moyenTransp.c_str());
+
+			//On l'ajoute au catalogue seulement si le numéro du trajet fait partie de l'intervalle
+			if (borneInt >= borneInf && borneInt <= borneSup) 
+			{
+				AjouterTrajet(trajetSimple);
+				comptTrajet++;
+			}
+
+		}
+
+	}
+	fic.close();
+	return comptTrajet;
+} // -- Fin de LectureIntervalleTrajetFichier
+
+int Catalogue::LectureVilleTrajetFichier(string cheminFichier, string option,string villed,string villea)
+// Algorithme :
+//On ajoute au catalogue tous les trajets qui ont la même ville de départ et/ou d'arrivée 
+//que celle(s) mentionnée(s) par l'utilisateur
+//On récupère le choix de l'option de l'utilisateur pour savoir la ou les types de villes de sélection:
+//soit la ville de départ, soit la ville d'arrivée, soit les deux
+{
+	ifstream fic;
+	fic.open(cheminFichier.c_str());
+	int comptTrajet = 0;
+
+	//Tant qu'on n'est pas à la fin du fichier, on continue
+	while (!fic.eof())
 	{
 		string ligne;
-		getline(fic,ligne,',');
-		
-		if(type=="C")
+		getline(fic, ligne, ',');
+		getline(fic, ligne, ',');
+
+		if (ligne == "C") //Si le trajet qu'on lit dans le fichier est un trajet composé
 		{
-		
-			if(ligne == "C")
-			{			
-				
-				string villeDep;
-				string villeArr;
-				
-				getline(fic,villeDep,',');
-				getline(fic,villeArr,',');
-				
-				Trajet * trajetCompose = new TrajetCompose(villeDep.c_str(),villeArr.c_str());
-				
-				string nbLigne;
-				getline(fic,nbLigne);
-				int nbTraj =atoi(nbLigne.c_str());
-				
-				for(int i=0; i<nbTraj; i++)  
+			string villeDep;
+			string villeArr;
+
+			getline(fic, villeDep, ',');
+			getline(fic, villeArr, ',');
+
+			Trajet * trajetCompose = new TrajetCompose(villeDep.c_str(), villeArr.c_str());
+
+			string nbLigne;
+			getline(fic, nbLigne);
+			int nbTraj = atoi(nbLigne.c_str());
+
+			//On récupère les trajets simples du trajet composé
+			for (int i = 0; i < nbTraj; i++)
+			{
+				getline(fic, ligne, ',');
+
+				if (ligne == "S")
 				{
-					getline(fic,ligne,',');
-					
-					if(ligne =="S")
-					{
-						string villeD;
-						string villeA;
-						string moyenT;
-						
-						getline(fic,villeD,',');
-						getline(fic,villeA,',');
-						getline(fic,moyenT);
-						
-						Trajet * trajetS= new TrajetSimple(villeD.c_str(),villeA.c_str(),moyenT.c_str());
-						trajetCompose->AjoutTrajet(trajetS);
-					}
+					string villeD;
+					string villeA;
+					string moyenT;
+
+					getline(fic, villeD, ',');
+					getline(fic, villeA, ',');
+					getline(fic, moyenT);
+
+					Trajet * trajetS = new TrajetSimple(villeD.c_str(), villeA.c_str(), moyenT.c_str());
+					trajetCompose->AjoutTrajet(trajetS);
 				}
+			}
+
+			//On ajoute le trajet au catalogue que si la ville de départ et/ou d'arrivée du trajet 
+			//sont celles dites par l'utilisateur
+			if (option == "D" && villeDep==villed)
+			{
 				AjouterTrajet(trajetCompose);
-				
-			} 
+				comptTrajet++;
+			}
+			else if (option == "A" && villeArr == villea)
+			{
+				AjouterTrajet(trajetCompose);
+				comptTrajet++;
+			}
+			else if (option == "DA" && villeDep == villed && villeArr == villea)
+			{
+				AjouterTrajet(trajetCompose);
+				comptTrajet++;
+			}
 		}
-		else if(type=="S")
+
+		else if (ligne == "S") //Si le trajet qu'on lit dans le fichier est simple
 		{
-			
-			 if(ligne == "S")
-			 {
+			string villeDep;
+			string villeArr;
+			string moyenTransp;
 
-				string villeDep;
-				string villeArr;
-				string moyenTransp;
-			
-				getline(fic,villeDep,',');
-				getline(fic,villeArr,',');
-				getline(fic,moyenTransp);
-				
-				
-				Trajet * trajetSimple= new TrajetSimple(villeDep.c_str(),villeArr.c_str(),moyenTransp.c_str());
-				
-				AjouterTrajet(trajetSimple);	
+			getline(fic, villeDep, ',');
+			getline(fic, villeArr, ',');
+			getline(fic, moyenTransp);
 
+			Trajet * trajetSimple = new TrajetSimple(villeDep.c_str(), villeArr.c_str(), moyenTransp.c_str());
+
+			//On l'ajoute au catalogue que si la ville de départ et/ou d'arrivée du trajet 
+			//sont celles dites par l'utilisateur
+			if (option == "D" && villeDep == villed)
+			{
+				AjouterTrajet(trajetSimple);
+				comptTrajet++;
+			}
+			else if (option == "A" && villeArr == villea)
+			{
+				AjouterTrajet(trajetSimple);
+				comptTrajet++;
+			}
+			else if (option == "DA" && villeDep == villed && villeArr == villea)
+			{
+				AjouterTrajet(trajetSimple);
+				comptTrajet++;
 			}
 		}
 
 	}
-	
 	fic.close();
-} // --Fin de LectureTypeTrajetFichier
+	return comptTrajet;
+} //-- Fin de LectureVilleTrajetFichier
 
-void Catalogue::LectureToutTrajetFichier(string nomFichier)
+int Catalogue::LectureChoixVilleTrajetFichier(string cheminFichier, string option)
 // Algorithme :
+// On gère les erreurs liées au chemin d'accès du fichier 
+//et au choix de l'option sur la sélection des trajets
 {
 	ifstream fic;
-	fic.open(nomFichier.c_str());
+	fic.open(cheminFichier.c_str());
+	
+	//si le chemin d'accès donné ne permet pas l'ouverture du fichier
+	//on demande de nouveau le chemin d'accès au fichier
+	while (!fic)
+	{
+		cout << "Erreur à l'ouverture du fichier, entrez de nouveau le chemin :" << endl;
+		cin >> cheminFichier;
+		cout <<""<< endl;
+		fic.open(cheminFichier.c_str());
+	}
+
+	fic.close();
+
+	//Si l'option saisie par l'utilisateur ne fait pas partie des trois proposées
+	//On lui demande de nouveau d'en choisir une 
+	while (option != "D" && option != "A" && option != "DA") {
+		cout << "Erreur dans le choix de l'option" << endl;
+		cout << " - Tapez D pour récupérer les trajets suivant leur ville de départ " << endl;
+		cout << " - Tapez A pour récupérer les trajets suivant leur ville d'arrivée " << endl;
+		cout << " - Tapez DA pour récupérer les trajets suivant leurs villes de départ et d'arrivée" << endl;
+		cout << "Choisissez un nom d'option valide : ";
+		cin >> option;
+		cout <<""<< endl;
+	}
+
+	int nbTrajet = 0;
+	if (option == "D")
+	{
+		string villed;
+		cout << "Indiquez le nom de la ville de départ que les trajets doivent avoir : ";
+		cin >> villed;
+
+		nbTrajet = LectureVilleTrajetFichier(cheminFichier, option, villed, "inconnue");
+		//Détail des paramètres dans le .h correspondant
+
+		return nbTrajet;
+	}
+	else if (option == "A")
+	{
+		string villea;
+		cout << "Indiquez le nom de la ville d'arrivée que les trajets doivent avoir : ";
+		cin >> villea;
+
+		nbTrajet = LectureVilleTrajetFichier(cheminFichier, option, "inconnue", villea);
+		//Détail des paramètres dans le .h correspondant
+
+		return nbTrajet;
+	}
+	else if (option == "DA")
+	{
+		string villed;
+		cout << "Indiquez le nom de la ville de départ que les trajets doivent avoir : ";
+		cin >> villed;
+
+		string villea;
+		cout << "Indiquez le nom de la ville d'arrivée que les trajets doivent avoir : ";
+		cin >> villea;
+
+		nbTrajet = LectureVilleTrajetFichier(cheminFichier, option, villed, villea);
+		//Détail des paramètres dans le .h correspondant
+
+		return nbTrajet;
+	}
+
+	return nbTrajet;
+} // -- Fin de LectureChoixVilleTrajetFichier
+
+int Catalogue::LectureTypeTrajetFichier(string cheminFichier, string type)
+//Algorithme :
+//On ajoute au catalogue tous les trajets du fichier dont le type est donné en paramètre
+{
+	ifstream fic;
+	fic.open(cheminFichier.c_str());
+	
+	int comptTrajet = 0;
+	//Tant qu'on n'est pas à la fin du fichier, on continue
+	while (!fic.eof())
+	{
+		string ligne;
+		getline(fic, ligne, ',');
+		getline(fic, ligne, ',');
+
+		if (ligne == "C") //Si le trajet qu'on lit dans le fichier est un trajet composé
+		{
+			string villeDep;
+			string villeArr;
+
+			getline(fic, villeDep, ',');
+			getline(fic, villeArr, ',');
+
+			Trajet * trajetCompose = new TrajetCompose(villeDep.c_str(), villeArr.c_str());
+
+			string nbLigne;
+			getline(fic, nbLigne);
+			int nbTraj = atoi(nbLigne.c_str());
+
+			//On ajoute les trajets simples du trajet composé au trajet composé
+			for (int i = 0; i < nbTraj; i++)
+			{
+				getline(fic, ligne, ',');
+
+				if (ligne == "S")
+				{
+					string villeD;
+					string villeA;
+					string moyenT;
+
+					getline(fic, villeD, ',');
+					getline(fic, villeA, ',');
+					getline(fic, moyenT);
+
+					Trajet * trajetS = new TrajetSimple(villeD.c_str(), villeA.c_str(), moyenT.c_str());
+					trajetCompose->AjoutTrajet(trajetS);
+				}
+			}
+
+			//On ajoute le trajet composé au catalogue que si le type de trajet choisit par l'utilisateur est composé
+			if (type == "C")
+			{
+				AjouterTrajet(trajetCompose);
+				comptTrajet++;
+			}
+		}
+
+		else if (ligne == "S") //Si le trajet qu'on lit dans le fichier est un trajet simple
+		{
+			string villeDep;
+			string villeArr;
+			string moyenTransp;
+
+			getline(fic, villeDep, ',');
+			getline(fic, villeArr, ',');
+			getline(fic, moyenTransp);
+
+			Trajet * trajetSimple = new TrajetSimple(villeDep.c_str(), villeArr.c_str(), moyenTransp.c_str());
+
+			//On ajoute le trajet simple au catalogue que si le type de trajet choisit par l'utilisateur est simple
+			if (type=="S")
+			{
+				AjouterTrajet(trajetSimple);
+				comptTrajet++;
+			}	
+		}
+
+	}
+	fic.close();
+	return comptTrajet;
+
+	/*while (!fic.eof())
+	{
+		string ligne;
+		getline(fic, ligne, ',');
+		getline(fic, ligne, ',');
+
+		if (type == "C" && ligne == "C")
+		{
+			string villeDep;
+			string villeArr;
+
+			getline(fic, villeDep, ',');
+			getline(fic, villeArr, ',');
+
+			Trajet * trajetCompose = new TrajetCompose(villeDep.c_str(), villeArr.c_str());
+
+			string nbLigne;
+			getline(fic, nbLigne);
+			int nbTraj = atoi(nbLigne.c_str());
+
+			for (int i = 0; i < nbTraj; i++)
+			{
+				getline(fic, ligne, ',');
+
+				if (ligne == "S")
+				{
+					string villeD;
+					string villeA;
+					string moyenT;
+
+					getline(fic, villeD, ',');
+					getline(fic, villeA, ',');
+					getline(fic, moyenT);
+
+					Trajet * trajetS = new TrajetSimple(villeD.c_str(), villeA.c_str(), moyenT.c_str());
+					trajetCompose->AjoutTrajet(trajetS);
+				}
+			}
+			AjouterTrajet(trajetCompose);
+		}
+		else if (type == "C" && ligne == "S")
+		{
+			getline(fic, ligne);
+		}
+
+		else if (type == "S" && ligne == "S")
+		{
+			string villeDep;
+			string villeArr;
+			string moyenTransp;
+
+			getline(fic, villeDep, ',');
+			getline(fic, villeArr, ',');
+			getline(fic, moyenTransp);
+
+
+			Trajet * trajetSimple = new TrajetSimple(villeDep.c_str(), villeArr.c_str(), moyenTransp.c_str());
+
+			AjouterTrajet(trajetSimple);
+
+		}
+		else if (type == "S" && ligne == "C")
+		{
+
+			getline(fic, ligne, ',');
+			getline(fic, ligne, ',');
+
+			string nbLigne;
+			getline(fic, nbLigne);
+			int nbTraj = atoi(nbLigne.c_str());
+			for (int i = 0; i < nbTraj; i++)
+			{
+				getline(fic, ligne);
+			}
+
+		}
+
+	}
+	
+	fic.close();*/
+
+} // -- Fin de LectureTypeTrajetFichier
+
+int Catalogue::LectureChoixTypeTrajetFichier(string cheminFichier, string type)
+// Algorithme :
+//On gère les erreurs liées au chemin d'accès du fichier
+//et celles liées au choix de l'utilisateur sur le type de trajet voulu : simple ou composé
+{
+	ifstream fic;
+	fic.open(cheminFichier.c_str());
+
+	//si le chemin d'accès donné ne permet pas l'ouverture du fichier
+	//on demande de nouveau le chemin d'accès au fichier
 	while(!fic)
 	{
 		cout<<"Erreur à l'ouverture du fichier, entrez de nouveau le chemin :"<<endl;
-		cin>>nomFichier;
-		fic.open(nomFichier.c_str()); //Ne cree pas de fichier permet juste d'en ouvrir un existant
+		cin>> cheminFichier;
+		cout << "" << endl;
+		fic.open(cheminFichier.c_str()); 
+	}
+	fic.close();
+
+	//Tant que l'utilisateur ne choisit pas une des deux options
+	//On lui demande d'en choisir une de nouveau
+	while(type!="S" && type!="C")
+	{
+		cout << "Erreur dans l'option choisie" << endl;
+		cout << " - Tapez S pour récupérer uniquement les trajets simples" << endl;
+		cout << " - Tapez C pour récupérer uniquement les trajets composés" << endl;
+		cout<<"Choisissez une option avec un nom valide : ";
+		cin>>type;	
+		cout << "" << endl;
+	}
+	
+	int nbTrajet = LectureTypeTrajetFichier(cheminFichier, type);
+	//Détails des paramètres dans le .h correspondant
+
+	return nbTrajet;
+	
+} // --Fin de LectureChoixTypeTrajetFichier
+
+int Catalogue::LectureToutTrajetFichier(string cheminFichier)
+// Algorithme :
+//On ajoute au catalogue tous les trajets qui sont contenus dans le fichier
+{
+	ifstream fic;
+	fic.open(cheminFichier.c_str());
+
+	//si le chemin d'accès donné ne permet pas l'ouverture du fichier
+	//on demande de nouveau le chemin d'accès au fichier
+	while(!fic)
+	{
+		cout<<"Erreur à l'ouverture du fichier, entrez de nouveau le chemin :"<<endl;
+		cin>> cheminFichier;
+		fic.open(cheminFichier.c_str()); //Ne cree pas de fichier permet juste d'en ouvrir un existant
 	}
 
+	int compteurTrajet = 0;
+	//Tant qu'on n'est pas à la fin du fichier, on continue
 	while(!fic.eof())
 	{
 		string ligne;
 		getline(fic,ligne,',');
+		getline(fic,ligne,',');
 		
-		if(ligne == "C")
+		if(ligne == "C") //Si le trajet qu'on lit dans le fichier est composé
 		{			
 			
 			string villeDep;
@@ -197,13 +598,15 @@ void Catalogue::LectureToutTrajetFichier(string nomFichier)
 			
 			getline(fic,villeDep,',');
 			getline(fic,villeArr,',');
-			
+
+			//On le crée
 			Trajet * trajetCompose = new TrajetCompose(villeDep.c_str(),villeArr.c_str());
 			
 			string nbLigne;
 			getline(fic,nbLigne);
 			int nbTraj =atoi(nbLigne.c_str());
 			
+			//On récupère ses trajets simples
 			for(int i=0; i<nbTraj; i++)  
 			{
 				getline(fic,ligne,',');
@@ -222,11 +625,13 @@ void Catalogue::LectureToutTrajetFichier(string nomFichier)
 					trajetCompose->AjoutTrajet(trajetS);
 				}
 			}
+			//On l'ajoute au catalogue
 			AjouterTrajet(trajetCompose);
+			compteurTrajet++;
 			
 		} 
 		
-		else if(ligne == "S")
+		else if(ligne == "S") //Si le trajet lu dans le fichier est simple
 		{
 
 			string villeDep;
@@ -240,13 +645,16 @@ void Catalogue::LectureToutTrajetFichier(string nomFichier)
 			
 			Trajet * trajetSimple= new TrajetSimple(villeDep.c_str(),villeArr.c_str(),moyenTransp.c_str());
 			
-			AjouterTrajet(trajetSimple);	
+			//On l'ajoute au catalogue
+			AjouterTrajet(trajetSimple);
+			compteurTrajet++;
 
 		}
 
 	}
 	
 	fic.close();
+	return compteurTrajet;
 
 } // --Fin de LectureTrajetFichier
 
