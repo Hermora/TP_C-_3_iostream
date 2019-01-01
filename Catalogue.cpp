@@ -40,26 +40,103 @@ void Catalogue::ecritureDansFichier(int choix, string cheminFic)
 		cout << "" << endl;
 		fichier.open(cheminFic.c_str(), ios::out | ios::trunc);
 	}
-	if (choix==1 && tailleC!=0)
+	if (nbTrajetsC!=0)
 	{
-		for (int i=0; i<nbTrajetsC; i++)
+		if (choix==1) // sauvegarde de tout
 		{
-			fichier << i+1 << ",";
-			tabTrajetCatalogue[i]->ecrire(fichier);
-		}	
-	}
-	else if (choix==2 && tailleC!=0)
-	{
-	}
-	else if (choix==3 && tailleC!=0)
-	{
-	}
-	else if (choix==4 && tailleC!=0)
-	{
-	}
+			for (int i=0; i<nbTrajetsC; i++)
+			{
+				fichier << i+1 << ",";
+				tabTrajetCatalogue[i]->ecrire(fichier);
+			}	
+		}
+		else if (choix==2) //sauvegarde selon le type de trajets
+		{
+			cout << "Quel type de trajets voulez vous sauvegarder? Simple(S) ou Composé(C)?" << endl;
+			char resp;
+			cin >> resp;
+			while (resp!='S' && resp!='C')
+			{
+				cout << "caractère non reconnu, recommencez svp :" << endl;
+				cin >> resp;
+			}
+			if (resp=='S')
+			{
+			}
+			else if (resp=='C')
+			{
+			}
+		}
+		else if (choix==3) //sauvegarde selon la ville d'arrivée et/ou de départ
+		{
+			cout << "Entrez le nom de la ville de départ que vous souhaitez sélectionner," << endl;
+		        cout <<	"entrez \"empty\" si vous ne souhaitez pas effectuer de sélection sur la ville de départ :" << endl;
+			string vd;
+			cin >> vd;
+			cout << "Entrez le nom de la ville d'arrivée que vous souhaitez séléctionner," << endl;
+			cout << "entrez \"empty\" si vous ne souhaitez pas effectuer de sélection sur la ville d'arrivée :" << endl;
+			string va; 
+			cin >> va;
+		}
+		else if (choix==4) //sauvegarde dans un intervalle défini
+		{
+			cout << "entrez la borne inférieure de votre intervalle de sélection :" << endl;
+			int borneInf;
+			cin >> borneInf;
+			while (cin.fail())
+			{
+				cout << "Erreur, entrez un nombre";
+				cin.clear();
+				cin.ignore(256,'\n');
+				cin >> borneInf;
+				cout << "" << endl;
+			}
+			if (borneInf<=0)
+			{
+				cout << "Votre nombre est négatif ou nul, il a été remplacé par 1" << endl;
+				borneInf=1;
+			}
+			else if (borneInf > nbTrajetsC)
+			{
+				cout << "Votre nombre est supérieur au nombre de trajets présents dans le catalogue" << endl;
+				cout << "il a été remplacé par " << nbTrajetsC << endl;
+				borneInf=nbTrajetsC;
+			}
+			cout << "Entrez la borne supérieure de votre intervalle de sélection :" << endl;
+			int borneSup;
+			cin >> borneSup;
+			while (cin.fail())
+			{
+				cout << "Erreur, entrez un nombre :";
+				cin.clear();
+				cin.ignore(256,'\n');
+				cin >> borneSup;
+				cout << "" <<endl;
+			}
+			if (borneSup < borneInf)
+			{
+				cout << "Votre borne supérieure est plus petite que votre borne inférieure" << endl;
+				cout << "elle a été remplacée par la borne inférieure : " << borneInf << endl;
+				borneSup = borneInf;
+			}
+			else if (borneSup > nbTrajetsC)
+			{
+				cout << "Votre borne supérieure est plus grande que le nombre de trajets présents dans le catalogue" << endl;
+				cout << "elle a été remplacée par " << nbTrajetsC << endl;
+				borneSup = nbTrajetsC;
+			}
+			int j=1;
+			for (int i=borneInf-1; i<borneSup; i++)
+			{
+				fichier << j << ",";
+				j++;
+				tabTrajetCatalogue[i]->ecrire(fichier);
+			}
+		}
+		cout << "Trajet(s) sauvegardé(s) avec succès ! " << endl;
+	} 
 	else
-		cout << "le catalaogue actuel est vide, il n'y a rien à sauvegarder" << endl;
-
+		cout << "Le catalogue actuel ne contient aucun trajets, sauvegarde impossible" << endl;
 	fichier.close();
 
 }// -- Fin de EcritureDansUnFichier

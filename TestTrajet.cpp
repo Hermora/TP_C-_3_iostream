@@ -314,7 +314,7 @@ int main ()
 		}
 		else if (choix == 6) //Ecriture dans un fichier
 		{
-			cout << "Entrez le chemin du fichier dans lequel vous souhaitez écrire (attention le contenu du fichier sera écrasé): " << endl;
+			cout << "Entrez le chemin du fichier dans lequel vous souhaitez écrire (ATTENTION, le contenu du fichier sera écrasé): " << endl;
 			string cheminFic;
 			cin >> cheminFic;
 			int choice;
@@ -330,8 +330,6 @@ int main ()
 			}
 
 			catalogue->ecritureDansFichier(choice, cheminFic);
-
-			cout << "Trajets sauvegardés avec succès!" <<endl;
 		}
 		else if (choix == 7) //Lecture dans un fichier
 		{
