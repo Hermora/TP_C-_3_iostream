@@ -42,7 +42,8 @@ void Catalogue::ecritureDansFichier(int choix, string cheminFic)
 	}
 	if (nbTrajetsC!=0)
 	{
-		int j=0;
+		int j=0; //compteur du nombre de trajets sauvegardés
+
 		if (choix==1) // sauvegarde de tout
 		{
 			for (int i=0 ; i<nbTrajetsC ; i++)
@@ -82,6 +83,42 @@ void Catalogue::ecritureDansFichier(int choix, string cheminFic)
 			cout << "entrez \"empty\" si vous ne souhaitez pas effectuer de sélection sur la ville d'arrivée :" << endl;
 			string va; 
 			cin >> va;
+			if (va=="empty") //cas 1, pas de ville d'arrivee
+			{
+				for (int i=0; i<nbTrajetsC; i++)
+				{
+					if (vd==tabTrajetCatalogue[i]->GetVilleDepart())
+					{
+						j++;
+						fichier << j <<",";
+						tabTrajetCatalogue[i]->ecrire(fichier);
+					}
+				}
+			}
+			else if (vd=="empty") //cas 2, pas de ville de départ
+			{
+				for (int i=0; i<nbTrajetsC; i++)
+				{
+					if (va==tabTrajetCatalogue[i]->GetVilleArrivee())
+					{
+						j++;
+						fichier << j << ",";
+						tabTrajetCatalogue[i]->ecrire(fichier);
+					}
+				}
+			}
+			else //cas 3, les 2 villes sont indiquées
+			{
+				for (int i=0; i<nbTrajetsC; i++)
+				{
+					if (vd==tabTrajetCatalogue[i]->GetVilleDepart() && va==tabTrajetCatalogue[i]->GetVilleArrivee())
+					{
+						j++;
+						fichier << j << ",";
+						tabTrajetCatalogue[i]->ecrire(fichier);
+					}
+				}
+			}
 		}
 		else if (choix==4) //sauvegarde dans un intervalle défini
 		{
