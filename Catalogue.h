@@ -38,24 +38,24 @@ class Catalogue
 	//----------------------------------------------------- Méthodes publiques
 
 		void AfficherTrajetsCatalogue() const;
-		//Mode d'emploi : Affiche les trajets contenus dans le catalogue
+		// Mode d'emploi : Affiche les trajets contenus dans le catalogue
 		// Paramètres : aucun
 	 	// Contrat : aucun
 
 		void AjouterTrajet(Trajet * trajet);
-		//Mode d'emploi : Ajoute un trajet dans le catalogue
+		// Mode d'emploi : Ajoute un trajet dans le catalogue
 		// Paramètres : trajet est le trajet ajouté au catalogue
 		// Contrat : aucun
 
  		void RechercheSimple (const char * villeDepart, const char * villeArrivee) const;
-		//Mode d'emploi : Fait une recherche simple sur le catalogue
+		// Mode d'emploi : Fait une recherche simple sur le catalogue
 		// Paramètres : 
 		//   - villeDepart est la ville de départ de la recherche simple
         	//   - villeArrivee est la ville d'arrivée de la recherche simple
 		// Contrat : aucun
 
 		int RechercheComplete (const char * villeDepart, const char * villeArrivee, Trajet ** enchainementsPossible, int caseSuivante, int * contientTrajet) const;
-		//Mode d'emploi : Fait une recherche complète sur le catalogue
+		// Mode d'emploi : Fait une recherche complète sur le catalogue
 		// Paramètres : 
 		//   - villeDepart est la ville de départ de la recherche complète
         	//   - villeArrivee est la ville d'arrivée de la recherche complète
@@ -65,43 +65,49 @@ class Catalogue
 		// Contrat : aucun
 
 		void ecritureDansFichier(int choix, string cheminFic);
+		// Mode d'emploi : Sauvegarde dans un fichier déjà existant ou non (dans ce cas le programme
+		// crée le fichier) les trajets, ou une sélection de trajets, présents dans le catalogue
+		// Paramètre :
+		// - choix est le mode de sauvegarde qui sera utilisé
+		// - cheminFic est le chemin du fichier où l'on veut sauvegarder les trajets
+		// Contrat : aucun
 
 		int LectureToutTrajetFichier(string cheminFichier);
-		//Mode d'emploi : Recupère les trajets qui sont dans le fichier   
-        	//dont le chemin d'accès est donné en paramètre
+		// Mode d'emploi : Recupère les trajets qui sont dans le fichier   
+        	// dont le chemin d'accès est donné en paramètre
 		// Paramètre :
 		// - cheminFichier est le chemin d'accès du fichier à lire
         	// Contrat : aucun
 
 		int LectureChoixTypeTrajetFichier(string cheminFichier, string type);
-		//Mode d'emploi : Recupère le chemin d'accès du fichier et le type de trajet 
-		//que l'utilisateur veut mettre dans le catalogue pour gérer les erreurs de saisies
+		// Mode d'emploi : Recupère le chemin d'accès du fichier et le type de trajet 
+		// que l'utilisateur veut mettre dans le catalogue pour gérer les erreurs de saisies
 		// Paramètres :
 		// - cheminFichier est le chemin d'accès du fichier à lire
 		// - type est le type de trajet que l'utilisateur veut récupérer soit simple soit composé
 		// Contrat : aucun
 
         	int LectureTypeTrajetFichier(string cheminFichier, string type);
-		//Mode d'emploi : Recupère seulement les trajets simples ou composés qui sont dans le fichier   
-        	//dont le chemin d'accès est donné en paramètre
+		// Mode d'emploi : Recupère seulement les trajets simples ou composés qui sont dans le fichier   
+        	// dont le chemin d'accès est donné en paramètre
 		// Paramètres :
 		// - cheminFichier est le chemin d'accès du fichier à lire
 		// - type est le type de trajet que l'utilisateur veut récupérer soit simple soit composé
         	// Contrat : aucun
 
 		int LectureChoixVilleTrajetFichier(string cheminFichier, string option);
-		//Mode d'emploi : Recupère le chemin d'accès du fichier à lire et l'option choisie par l'utilisateur  
-		//pour savoir si il veut récupérer les trajets suivant la ville de départ et/ou d'arrivée  
-		//et pouvoir gérer les erreurs de saisies
+		// Mode d'emploi : Recupère le chemin d'accès du fichier à lire et l'option choisie par l'utilisateur  
+		// pour savoir si il veut récupérer les trajets suivant la ville de départ et/ou d'arrivée  
+		// et pouvoir gérer les erreurs de saisies
 		// Paramètres :
 		// - cheminFichier est le chemin d'accès du fichier à lire
 		// - option est le nom de l'option choisi par l'utilisateur
 		// Contrat : aucun
 
 		int LectureVilleTrajetFichier(string cheminFichier, string option, string villed, string villea);
-		//Mode d'emploi : Recupère seulement les trajets qui sont dans le fichier 
-		//dont le chemin d'accès est donné en paramètre et qui ont la meme ville 
-		//de départ et/ou d'arrivée que celle mentionnée par l'utilisateur   
+		// Mode d'emploi : Recupère seulement les trajets qui sont dans le fichier 
+		// dont le chemin d'accès est donné en paramètre et qui ont la meme ville 
+		// de départ et/ou d'arrivée que celle mentionnée par l'utilisateur   
 		// Paramètres :
 		// - cheminFichier est le chemin d'accès du fichier à lire
 		// - option est le nom de l'option choisi par l'utilisateur
@@ -110,9 +116,9 @@ class Catalogue
 		// Contrat : aucun
 
 		int LectureIntervalleTrajetFichier(string cheminFichier, int borneInf, int borneSup);
-		//Mode d'emploi : Recupère seulement les trajets qui sont dans le fichier 
-		//dont le chemin d'accès est donné en paramètre et qui sont dans l'intervalle
-		//mentionné par l'utilisateur   
+		// Mode d'emploi : Recupère seulement les trajets qui sont dans le fichier 
+		// dont le chemin d'accès est donné en paramètre et qui sont dans l'intervalle
+		// mentionné par l'utilisateur   
 		// Paramètres :
 		// - cheminFichier est le chemin d'accès du fichier à lire
 		// - borneInf est la valeur de la borne inférieure de l'intervalle correspondant au premier trajet

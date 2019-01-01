@@ -21,6 +21,10 @@ using namespace std;
 #include "TrajetSimple.h"
 
 void TrajetSimple::ecrire(ofstream& fichier)
+// Algorithme : 
+// Place le type de trajets en début de ligne, puis les villes de départ
+// et d'arrivée grâce à la méthode de trajets, puis ajoute le moyen de transport
+// et fait un retour à la ligne
 {
 	fichier << "S,";
 	Trajet::ecrire(fichier);

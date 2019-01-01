@@ -41,17 +41,22 @@ class TrajetSimple : public Trajet
 
 		//----------------------------------------------------- Méthodes publiques
 	
-		void ecrire(ofstream& fichier);	
+		void ecrire(ofstream& fichier);
+		// Mode d'emploi : rajoute les informations manquantes du trajet simple
+		// au fichier passé en paramètre
+		// Paramètres :
+		// - fichier est le fichier dans lequel on écrit
+		// Contrat : aucun
 	
 		void AfficherTrajet(int i) const;
-		//Mode d'emploi : Affiche un trajet simple
+		// Mode d'emploi : Affiche un trajet simple
 		// Paramètres :
 		//     - i est un indice qui permet d'indenter les affichages des trajets simples
 		// Contract : aucun
 
 		void AfficheTrajetPossibleSimple() const;
-		//Mode d'emploi : Affiche les trajets simples qui ont été trouvés par la recherche simple
-		//Paramètres : aucun
+		// Mode d'emploi : Affiche les trajets simples qui ont été trouvés par la recherche simple
+		// Paramètres : aucun
 		// Contract : aucun
 	
 	

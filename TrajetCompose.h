@@ -34,20 +34,25 @@ class TrajetCompose : public Trajet
 	//----------------------------------------------------- Méthodes publiques
 	   
 		void ecrire(ofstream& fichier);
+		// Mode d'emploi : rajoute les informations manquantes sur le trajet composé
+		// au fichier en paramètre
+		// Paramètres : 
+		// - fichier : le fichier dans lequel on écrit
+		// Contrat : aucun 
 
 		void AjoutTrajet (Trajet * trajet);
-		//Mode d'emploi : Ajoute un trajet composé
+		// Mode d'emploi : Ajoute un trajet composé
 		// Paramètres :
 		//     - trajet est le trajet composé à ajouter
-		// Contract : aucun
+		// Contrat : aucun
 	
  		int GetNbTrajets() const;
-		//Mode d'emploi : Renvoie le nombre actuel de trajets dans le tableau 
+		// Mode d'emploi : Renvoie le nombre actuel de trajets dans le tableau 
 		// Paramètres :aucun
 		// Contract : aucun
 	
 		void AfficherTrajet(int i) const;
-		//Mode d'emploi : Affiche un trajet composé
+		// Mode d'emploi : Affiche un trajet composé
 		// Paramètres :
 		//     - i est un indice qui permet d'indenter les affichages des trajets
 		// Contract : aucun

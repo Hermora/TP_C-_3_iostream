@@ -205,6 +205,8 @@ static void affichageMenuPrincipal()
 }
 
 static void affichageMenuEcriture()
+// Algorithme :
+// Menu pour la sauvegarde des trajets
 {
 	cout << " *********************************   MENU ECRITURE   **************************** " << endl;
 	cout << "- 1 pour enregistrer tous les trajets du catalogue" << endl;
@@ -216,6 +218,8 @@ static void affichageMenuEcriture()
 }
 
 static void affichageMenuLecture()
+// Algorithme :
+// Menu pour ajouter les trajets d'un fichier au catalogue
 {
 	cout << " *********************************   MENU LECTURE   ***************************** " << endl;
 	cout << "- 1 pour récupérer tous les trajets du fichier" << endl;
@@ -320,6 +324,8 @@ int main ()
 			int choice;
 			affichageMenuEcriture();
 			cin >> choice;
+
+			// vérification que l'entrée est correcte
 			while (choice!=1 && choice!=2 && choice!=3 && choice!=4)
 			{
 				cout << "Erreur, entrez un nombre valide : " << endl;
@@ -363,7 +369,6 @@ int main ()
 				if (choixLect == 1) //Lecture generale dans un fichier
 				{
 					int nbTrajet = catalogue->LectureToutTrajetFichier(cheminFichier);
-					//Détail des paramètres dans le .h correspondant
 
 					cout << "" << endl;
 					if (nbTrajet > 1)
@@ -387,7 +392,6 @@ int main ()
 					cin>>type;
 					cout << "" << endl;
 					int nbTrajet = catalogue->LectureChoixTypeTrajetFichier(cheminFichier,type);
-					//Détail des paramètres dans le .h correspondant
 					
 					if (nbTrajet > 1)
 					{
@@ -410,7 +414,6 @@ int main ()
 					cin >> option;
 					cout << "" << endl;
 					int nbTrajet = catalogue->LectureChoixVilleTrajetFichier(cheminFichier, option);
-					//Détail des paramètres dans le .h correspondant
 
 					cout << "" << endl;
 					if (nbTrajet > 1)
@@ -452,7 +455,6 @@ int main ()
 					}
 
 					int nbTrajet = catalogue->LectureIntervalleTrajetFichier(cheminFichier,borneI,borneS);
-					//Détail des paramètres dans le .h correspondant
 					
 					if (nbTrajet > 1)
 					{

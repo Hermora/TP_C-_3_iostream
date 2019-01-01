@@ -23,6 +23,8 @@ using namespace std;
 //---------------------------------------------------- Fonctions publiques
 
 void Trajet::ecrire(ofstream& fichier)
+// Algorithme :
+// Rien à préciser
 {
 	fichier << villeDepart << "," << villeArrivee << ",";
 }

@@ -28,6 +28,11 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 
 void TrajetCompose::ecrire(ofstream& fichier)
+// Algorithme :
+// Ecrit le type du trajet, puis les villes de départ et d'arrivée à l'aide de la 
+// méthode de Trajet, puis le nombre de trajets simples dans le trajet composé suivi
+// d'un retour à la ligne. Et pour chaque trajet du trajet composé, appelle sa méthode
+// d'écriture dans le fichier.
 {
 	fichier << "C,";
 	Trajet::ecrire(fichier);

@@ -25,19 +25,25 @@ class Trajet
 	//----------------------------------------------------------------- PUBLIC
 
 	public:
+		//----------------------------------------------------- Attribut public
 
-		char type;
+		char type; //attribut permettant de connaître le type de trajets (simple ou composé) 
 
 		//----------------------------------------------------- Méthodes publiques
 		
 
 		virtual void ecrire(ofstream& fichier);
+		// Mode d'emploi : écrit les villes de départ et d'arrivée du trajet
+		// dans le fichier passé en paramètre
+		// Paramètre :
+		// - fichier est le fichier ouvert dans catalogue.cpp dans lequel on écrit
+		// Contrat : aucun
 	
 		virtual void AjoutTrajet (Trajet * trajet);
-		//Mode d'emploi : Ajoute un trajet
-		// Paramètres :
+		// Mode d'emploi : Ajoute un trajet
+		// Paramètre :
 		//     - trajet est le trajet à ajouter
-		// Contract : aucun
+		// Contrat : aucun
 
 		char * GetVilleDepart() const;
 		// Mode d'emploi : Retourne la valeur de la ville de départ du trajet
