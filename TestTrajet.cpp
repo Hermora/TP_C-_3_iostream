@@ -204,6 +204,17 @@ static void affichageMenuPrincipal()
 	cout << "Que souhaitez-vous faire ? : ";
 }
 
+static void affichageMenuEcriture()
+{
+	cout << " *********************************   MENU ECRITURE   **************************** " << endl;
+	cout << "- 1 pour enregistrer tous les trajets du catalogue" << endl;
+	cout << "- 2 pour enregistrer les trajets simples ou composés" << endl;
+	cout << "- 3 pour enregistrer les trajets selon la ville de départ et/ou d'arrivée" << endl;
+	cout << "- 4 pour enregistrer les trajets compris dans un intervalle du catalogue" << endl;
+	cout << " ******************************************************************************** " << endl;
+	cout << "Quel type de sauvegarde voulez-vous faire ?" << endl;
+}
+
 static void affichageMenuLecture()
 {
 	cout << " *********************************   MENU LECTURE   ***************************** " << endl;
@@ -303,12 +314,29 @@ int main ()
 		}
 		else if (choix == 6) //Ecriture dans un fichier
 		{
-			catalogue->EcritureDansUnFichier();
+			cout << "Entrez le chemin du fichier dans lequel vous souhaitez écrire (attention le contenu du fichier sera écrasé): " << endl;
+			string cheminFic;
+			cin >> cheminFic;
+			int choice;
+			affichageMenuEcriture();
+			cin >> choice;
+			while (choice!=1 && choice!=2 && choice!=3 && choice!=4)
+			{
+				cout << "Erreur, entrez un nombre valide : " << endl;
+				cin.clear();
+				cin.ignore(256, '\n');
+				cin >> choice;
+				cout << "" << endl;
+			}
+
+			catalogue->ecritureDansFichier(choice, cheminFic);
+
+			cout << "Trajets sauvegardés avec succès!" <<endl;
 		}
 		else if (choix == 7) //Lecture dans un fichier
 		{
 			cout << "Indiquez le chemin d'accès du fichier dans lequel vous voulez récupérer les trajets : "<<endl;
-			string cheminFichier; // /home/acroc/Documents/TP2C++2/TP2C++_VersionFinale/Test.txt
+			string cheminFichier; // ./Test.txt
 			cin >> cheminFichier;
 			
 			int choixLect;

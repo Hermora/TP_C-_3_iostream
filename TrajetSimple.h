@@ -39,7 +39,9 @@ class TrajetSimple : public Trajet
 
 	public:
 	//----------------------------------------------------- Méthodes publiques
-	   
+	
+	     void ecrire(ofstream& fichier);	
+	
 	     void AfficherTrajet(int i) const;
 	     //Mode d'emploi : Affiche un trajet simple
 	     // Paramètres :

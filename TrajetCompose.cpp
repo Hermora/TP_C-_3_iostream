@@ -13,8 +13,9 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
-using namespace std;
 #include <cstring>
+#include <fstream>
+using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "TrajetCompose.h"
@@ -26,6 +27,16 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+void TrajetCompose::ecrire(ofstream& fichier)
+{
+	fichier << "C,";
+	Trajet::ecrire(fichier);
+	fichier << nbTrajetsTC << endl;
+	for(int j=0; j<nbTrajetsTC; j++)
+	{
+		tabTrajetsSimpleEtCompose[j]->ecrire(fichier);
+	}
+}
 
 void TrajetCompose::AfficherTrajet(int i) const
 // Algorithme :

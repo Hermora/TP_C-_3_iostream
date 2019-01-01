@@ -64,7 +64,7 @@ class Catalogue
 	    //   - contientTrajet compte le nombre de possibilités de trajets
 	    // Contrat : aucun
 
-		void EcritureDansUnFichier();
+		void ecritureDansFichier(int choix, string cheminFic);
 
 	    int LectureToutTrajetFichier(string cheminFichier);
 	    //Mode d'emploi : Recupère les trajets qui sont dans le fichier   

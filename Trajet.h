@@ -26,7 +26,10 @@ class Trajet
 
 	public:
 	//----------------------------------------------------- Méthodes publiques
+		
 
+	virtual void ecrire(ofstream& fichier);
+	
 	   virtual void AjoutTrajet (Trajet * trajet);
 	   //Mode d'emploi : Ajoute un trajet
 	   // Paramètres :

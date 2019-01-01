@@ -14,11 +14,18 @@
 //-------------------------------------------------------- Include système
 #include <cstring>
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "TrajetSimple.h"
 
+void TrajetSimple::ecrire(ofstream& fichier)
+{
+	fichier << "S,";
+	Trajet::ecrire(fichier);
+	fichier << moyenTransport << endl;
+}
 
 void TrajetSimple::AfficheTrajetPossibleSimple() const
 // Algorithme :

@@ -11,8 +11,9 @@
 /////////////////////////////////////////////////////////////////  INCLUDE
 //-------------------------------------------------------- Include système
 #include <cstring>
-using namespace std;
 #include <iostream>
+#include <fstream>
+using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Trajet.h"
@@ -21,6 +22,10 @@ using namespace std;
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
 
+void Trajet::ecrire(ofstream& fichier)
+{
+	fichier << villeDepart << "," << villeArrivee << ",";
+}
 
 void Trajet::AfficheTrajetPossibleSimple() const
 // Algorithme :

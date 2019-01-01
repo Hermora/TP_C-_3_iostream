@@ -32,7 +32,9 @@ class TrajetCompose : public Trajet
 
 	public:
 	//----------------------------------------------------- Méthodes publiques
-	    
+	   
+	void ecrire(ofstream& fichier);
+
 	   void AjoutTrajet (Trajet * trajet);
 	   //Mode d'emploi : Ajoute un trajet composé
 	   // Paramètres :

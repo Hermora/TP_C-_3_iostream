@@ -28,59 +28,39 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-void Catalogue::EcritureDansUnFichier()
+void Catalogue::ecritureDansFichier(int choix, string cheminFic)
 //Algorithme :
 {
-	cout << "voulez vous créer un fichier (1) ou écrire dans un fichier déjà existant (2)?" << endl;
-	int choix;
-	cin >> choix;
-	string nomFichier;
-	while (cin.fail() && choix != 1 && choix != 2)
+	ofstream fichier;
+	fichier.open(cheminFic.c_str(), ios::out | ios::trunc);
+	while(!fichier)
 	{
-		cout << "Erreur, entrez un nombre valide :";
-		cin.clear();
-		cin.ignore(256, '\n');
-		cin >> choix;
+		cout << "erreur à l'ouverture du fichier, essayez de nouveau :" << endl;
+		cin >> cheminFic;
 		cout << "" << endl;
+		fichier.open(cheminFic.c_str(), ios::out | ios::trunc);
 	}
-	if (choix == 1)
+	if (choix==1 && tailleC!=0)
 	{
-		cout << "Comment vouler vous nommez votre fichier? (avec l'extention : .txt ...)" << endl;
-		cin >> nomFichier;
-		ofstream fichier;
-		fichier.open(nomFichier);
-		//faire la verif que l'ouverture a fonctionne
-
-		fichier.close();
-
-	}
-	else if (choix == 2)
-	{
-		cout << "entrez le nom de votre fichier avec son chemin d'accès :" << endl;
-		cin >> nomFichier;
-		ofstream fichier;
-		cout << "voulez vous écrire à la fin du fichier(1) ou effacer le contenu déjà existant pour écrire par dessus(2)?" << endl;
-		int choice;
-		cin >> choice;
-
-		while (cin.fail() || choice != 1 || choice != 2)
+		for (int i=0; i<nbTrajetsC; i++)
 		{
-			cout << "Erreur, entrez un nombre valide :";
-			cin.clear();
-			cin.ignore(256, '\n');
-			cin >> choice;
-			cout << "" << endl;
-		}
-
-		if (choice == 1)
-			fichier.open(nomFichier, ios::app);
-		else if (choice == 2)
-			fichier.open(nomFichier, ios::trunc);
-
-		//faire la verif de l'ouverture du fichier
-
-		fichier.close();
+			fichier << i+1 << ",";
+			tabTrajetCatalogue[i]->ecrire(fichier);
+		}	
 	}
+	else if (choix==2 && tailleC!=0)
+	{
+	}
+	else if (choix==3 && tailleC!=0)
+	{
+	}
+	else if (choix==4 && tailleC!=0)
+	{
+	}
+	else
+		cout << "le catalaogue actuel est vide, il n'y a rien à sauvegarder" << endl;
+
+	fichier.close();
 
 }// -- Fin de EcritureDansUnFichier
 
