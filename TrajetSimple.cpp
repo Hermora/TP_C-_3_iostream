@@ -36,7 +36,6 @@ void TrajetSimple::AfficheTrajetPossibleSimple() const
 
 }  //----- Fin de AfficherTrajetPossibleSimple
 
-
 void TrajetSimple::AfficherTrajet(int i) const
 // Algorithme :
 // Rien à préciser
@@ -62,6 +61,7 @@ TrajetSimple::TrajetSimple (const char * villeDep,const char * villeArr,const ch
 {
 	moyenTransport= new char[strlen(moyenTrans)+1];
 	strcpy(moyenTransport,moyenTrans);
+	type = 'S';
 
 	#ifdef MAP
 	    cout << "Appel au constructeur de <TrajetSimple>" << endl;

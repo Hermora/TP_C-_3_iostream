@@ -37,41 +37,41 @@ class Catalogue
 	public:
 	//----------------------------------------------------- Méthodes publiques
 
-	    void AfficherTrajetsCatalogue() const;
-	    //Mode d'emploi : Affiche les trajets contenus dans le catalogue
-	    // Paramètres : aucun
-	    // Contrat : aucun
+		void AfficherTrajetsCatalogue() const;
+		//Mode d'emploi : Affiche les trajets contenus dans le catalogue
+		// Paramètres : aucun
+	 	// Contrat : aucun
 
-	    void AjouterTrajet(Trajet * trajet);
-	    //Mode d'emploi : Ajoute un trajet dans le catalogue
-	    // Paramètres : trajet est le trajet ajouté au catalogue
-	    // Contrat : aucun
+		void AjouterTrajet(Trajet * trajet);
+		//Mode d'emploi : Ajoute un trajet dans le catalogue
+		// Paramètres : trajet est le trajet ajouté au catalogue
+		// Contrat : aucun
 
- 	    void RechercheSimple (const char * villeDepart, const char * villeArrivee) const;
-	    //Mode d'emploi : Fait une recherche simple sur le catalogue
-	    // Paramètres : 
-	    //   - villeDepart est la ville de départ de la recherche simple
-            //   - villeArrivee est la ville d'arrivée de la recherche simple
-	    // Contrat : aucun
+ 		void RechercheSimple (const char * villeDepart, const char * villeArrivee) const;
+		//Mode d'emploi : Fait une recherche simple sur le catalogue
+		// Paramètres : 
+		//   - villeDepart est la ville de départ de la recherche simple
+        	//   - villeArrivee est la ville d'arrivée de la recherche simple
+		// Contrat : aucun
 
-	    int RechercheComplete (const char * villeDepart, const char * villeArrivee, Trajet ** enchainementsPossible, int caseSuivante, int * contientTrajet) const;
-	    //Mode d'emploi : Fait une recherche complète sur le catalogue
-	    // Paramètres : 
-	    //   - villeDepart est la ville de départ de la recherche complète
-        //   - villeArrivee est la ville d'arrivée de la recherche complète
-	    //   - enchainementsPossible contient les trajets possibles qui vérifient la recherche complète
-        //   - caseSuivante l'indice de la case suivante à complétée dans le tableau enchainementsPossible
-	    //   - contientTrajet compte le nombre de possibilités de trajets
-	    // Contrat : aucun
+		int RechercheComplete (const char * villeDepart, const char * villeArrivee, Trajet ** enchainementsPossible, int caseSuivante, int * contientTrajet) const;
+		//Mode d'emploi : Fait une recherche complète sur le catalogue
+		// Paramètres : 
+		//   - villeDepart est la ville de départ de la recherche complète
+        	//   - villeArrivee est la ville d'arrivée de la recherche complète
+		//   - enchainementsPossible contient les trajets possibles qui vérifient la recherche complète
+        	//   - caseSuivante l'indice de la case suivante à complétée dans le tableau enchainementsPossible
+		//   - contientTrajet compte le nombre de possibilités de trajets
+		// Contrat : aucun
 
 		void ecritureDansFichier(int choix, string cheminFic);
 
-	    int LectureToutTrajetFichier(string cheminFichier);
-	    //Mode d'emploi : Recupère les trajets qui sont dans le fichier   
-        //dont le chemin d'accès est donné en paramètre
-	    // Paramètre :
-	    // - cheminFichier est le chemin d'accès du fichier à lire
-        // Contrat : aucun
+		int LectureToutTrajetFichier(string cheminFichier);
+		//Mode d'emploi : Recupère les trajets qui sont dans le fichier   
+        	//dont le chemin d'accès est donné en paramètre
+		// Paramètre :
+		// - cheminFichier est le chemin d'accès du fichier à lire
+        	// Contrat : aucun
 
 		int LectureChoixTypeTrajetFichier(string cheminFichier, string type);
 		//Mode d'emploi : Recupère le chemin d'accès du fichier et le type de trajet 
@@ -81,13 +81,13 @@ class Catalogue
 		// - type est le type de trajet que l'utilisateur veut récupérer soit simple soit composé
 		// Contrat : aucun
 
-        int LectureTypeTrajetFichier(string cheminFichier, string type);
-	    //Mode d'emploi : Recupère seulement les trajets simples ou composés qui sont dans le fichier   
-        //dont le chemin d'accès est donné en paramètre
-	    // Paramètres :
-	    // - cheminFichier est le chemin d'accès du fichier à lire
+        	int LectureTypeTrajetFichier(string cheminFichier, string type);
+		//Mode d'emploi : Recupère seulement les trajets simples ou composés qui sont dans le fichier   
+        	//dont le chemin d'accès est donné en paramètre
+		// Paramètres :
+		// - cheminFichier est le chemin d'accès du fichier à lire
 		// - type est le type de trajet que l'utilisateur veut récupérer soit simple soit composé
-        // Contrat : aucun
+        	// Contrat : aucun
 
 		int LectureChoixVilleTrajetFichier(string cheminFichier, string option);
 		//Mode d'emploi : Recupère le chemin d'accès du fichier à lire et l'option choisie par l'utilisateur  
@@ -123,32 +123,32 @@ class Catalogue
 
 	//-------------------------------------------- Constructeurs - destructeur
 
-	    Catalogue ();
-	    // Mode d'emploi : Construit un catalogue
-	    // Paramètres : aucun
-	    // Contrat : aucun
+		Catalogue ();
+		// Mode d'emploi : Construit un catalogue
+		// Paramètres : aucun
+		// Contrat : aucun
 
-	    virtual ~Catalogue ( );
-	    // Mode d'emploi : Détruit un catalogue
-	    // Paramètres : aucun
-	    // Contrat : aucun
+		virtual ~Catalogue ( );
+		// Mode d'emploi : Détruit un catalogue
+		// Paramètres : aucun
+		// Contrat : aucun
 	
 
 	//------------------------------------------------------------------ PROTEGE
 
 	protected:
 
-	 void afficheCheminRechercheComplete(Trajet ** enchainementsPossible, int caseSuivante) const;
-	    //Mode d'emploi : Permet d'afficher les trajets trouvés lors de la recherche complète
-	    // Paramètres : 
-	    //   - enchainementsPossible contient les trajets possibles qui vérifient la recherche complète
-	    //   - caseSuivante l'indice de la case suivante à complétée dans le tableau enchainementsPossible
-	    // Contrat : aucun
+		void afficheCheminRechercheComplete(Trajet ** enchainementsPossible, int caseSuivante) const;
+		//Mode d'emploi : Permet d'afficher les trajets trouvés lors de la recherche complète
+		// Paramètres : 
+		//   - enchainementsPossible contient les trajets possibles qui vérifient la recherche complète
+		//   - caseSuivante l'indice de la case suivante à complétée dans le tableau enchainementsPossible
+		// Contrat : aucun
 
-	//----------------------------------------------------- Attributs protégés
-	Trajet ** tabTrajetCatalogue; //Le tableau contenant des pointeurs sur des trajets simples et des trajets composés
-	int tailleC; //La taille actuelle du tableau tabTrajetCatalogue
-	int nbTrajetsC; // Le nombre actuel de trajets contenus dans le tableau tabTrajetCatalogue
+		//----------------------------------------------------- Attributs protégés
+		Trajet ** tabTrajetCatalogue; //Le tableau contenant des pointeurs sur des trajets simples et des trajets composés
+		int tailleC; //La taille actuelle du tableau tabTrajetCatalogue
+		int nbTrajetsC; // Le nombre actuel de trajets contenus dans le tableau tabTrajetCatalogue
 
 };
 

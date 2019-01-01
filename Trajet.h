@@ -25,80 +25,83 @@ class Trajet
 	//----------------------------------------------------------------- PUBLIC
 
 	public:
-	//----------------------------------------------------- Méthodes publiques
+
+		char type;
+
+		//----------------------------------------------------- Méthodes publiques
 		
 
-	virtual void ecrire(ofstream& fichier);
+		virtual void ecrire(ofstream& fichier);
 	
-	   virtual void AjoutTrajet (Trajet * trajet);
-	   //Mode d'emploi : Ajoute un trajet
-	   // Paramètres :
-	   //     - trajet est le trajet à ajouter
-	   // Contract : aucun
+		virtual void AjoutTrajet (Trajet * trajet);
+		//Mode d'emploi : Ajoute un trajet
+		// Paramètres :
+		//     - trajet est le trajet à ajouter
+		// Contract : aucun
 
-	   char * GetVilleDepart() const;
-	   // Mode d'emploi : Retourne la valeur de la ville de départ du trajet
-	   // Paramètres : aucun
-	   // Contrat : aucun
+		char * GetVilleDepart() const;
+		// Mode d'emploi : Retourne la valeur de la ville de départ du trajet
+		// Paramètres : aucun
+		// Contrat : aucun
 
-	   char * GetVilleArrivee() const;
-	   // Mode d'emploi : Retourne la valeur de la ville d'arrivée du trajet
-	   // Paramètres : aucun
-	   // Contrat : aucun
-
-	   void SetVilleArrivee(const char * villeArr);
-	   // Mode d'emploi : Modifie la valeur de la ville d'arrivée du trajet
-	   // Paramètres : 
-	   //    - villeArr est la nouvelle ville qui sera affectée à l'attribut villeArrivee
-	   // Contrat : aucun
-
-           void SetVilleDepart(const char * villeDep);
-	   // Mode d'emploi : Modifie la valeur de la ville de départ du trajet
-	   // Paramètres : 
-	   //    - villeDep est la nouvelle ville qui sera affectée à l'attribut villeDepart
-	   // Contrat : aucun
-
-	   virtual void AfficherTrajet(int i) const;
- 	   // Mode d'emploi : Afficher tous les trajets 
-	   // Paramètres : 
-	   //    - i est un indice qui permet d'indenter les affichages des trajets
-	   // Contrat : aucun
-
-	   virtual void AfficheTrajetPossibleSimple() const;
-	   // Mode d'emploi : Affiche les trajets qui satisfont la recherche simple
-	   // Paramètres : aucun
-	   // Contrat : aucun
-
-
-	   //-------------------------------------------- Constructeurs - destructeurs publics
-
-	   virtual ~Trajet ( );
-	    // Mode d'emploi : Détruit le trajet
-	    // Paramètres : aucun
-	    // Contrat : aucun
-
-
-
+		char * GetVilleArrivee() const;
+		// Mode d'emploi : Retourne la valeur de la ville d'arrivée du trajet
+		// Paramètres : aucun
+		// Contrat : aucun
+	
+		void SetVilleArrivee(const char * villeArr);
+		// Mode d'emploi : Modifie la valeur de la ville d'arrivée du trajet
+		// Paramètres : 
+		//    - villeArr est la nouvelle ville qui sera affectée à l'attribut villeArrivee
+		// Contrat : aucun
+	
+        	void SetVilleDepart(const char * villeDep);
+		// Mode d'emploi : Modifie la valeur de la ville de départ du trajet
+		// Paramètres : 
+		//    - villeDep est la nouvelle ville qui sera affectée à l'attribut villeDepart
+		// Contrat : aucun
+	
+		virtual void AfficherTrajet(int i) const;
+ 		// Mode d'emploi : Afficher tous les trajets 
+		// Paramètres : 
+		//    - i est un indice qui permet d'indenter les affichages des trajets
+		// Contrat : aucun
+	
+		virtual void AfficheTrajetPossibleSimple() const;
+		// Mode d'emploi : Affiche les trajets qui satisfont la recherche simple
+		// Paramètres : aucun
+		// Contrat : aucun
+	
+	
+		//-------------------------------------------- Constructeurs - destructeurs publics
+	
+		virtual ~Trajet ( );
+		// Mode d'emploi : Détruit le trajet
+		// Paramètres : aucun
+		// Contrat : aucun
+			
+	
+	
 	//----------------------------------------------------------------- PROTEGE
 
 	protected:
 
 
-	    //-------------------------------------------- Constructeurs - destructeur protégé
+		//-------------------------------------------- Constructeurs - destructeur protégé
 
-	    Trajet (const char * villeDep, const char * villeArr);
-	    // Mode d'emploi : Construit un trajet
-	    // Paramètres : 
-	    //    - villeArr est la ville d'arrivée qui sera affectée à l'attribut villeArrivée
-	    //    - villeDep est la ville de départ qui sera affectée à l'attribut villeDépart
-	    // Contrat : aucun
-
-	    
-
-	    //----------------------------------------------------- Attributs protégés
-
-	    char * villeDepart; //La ville de départ d'un trajet
-	    char * villeArrivee; //La ville d'arrivée d'un trajet
+		Trajet (const char * villeDep, const char * villeArr);
+		// Mode d'emploi : Construit un trajet
+		// Paramètres : 
+		//    - villeArr est la ville d'arrivée qui sera affectée à l'attribut villeArrivée
+		//    - villeDep est la ville de départ qui sera affectée à l'attribut villeDépart
+		// Contrat : aucun
+	
+		    
+	
+		//----------------------------------------------------- Attributs protégés
+	
+		char * villeDepart; //La ville de départ d'un trajet
+		char * villeArrivee; //La ville d'arrivée d'un trajet
 
 };
 

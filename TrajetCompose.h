@@ -33,54 +33,54 @@ class TrajetCompose : public Trajet
 	public:
 	//----------------------------------------------------- Méthodes publiques
 	   
-	void ecrire(ofstream& fichier);
+		void ecrire(ofstream& fichier);
 
-	   void AjoutTrajet (Trajet * trajet);
-	   //Mode d'emploi : Ajoute un trajet composé
-	   // Paramètres :
-	   //     - trajet est le trajet composé à ajouter
-	   // Contract : aucun
-
-	    int GetNbTrajets() const;
-	   //Mode d'emploi : Renvoie le nombre actuel de trajets dans le tableau 
-	   // Paramètres :aucun
-	   // Contract : aucun
-
-	    void AfficherTrajet(int i) const;
-	   //Mode d'emploi : Affiche un trajet composé
-	   // Paramètres :
-	   //     - i est un indice qui permet d'indenter les affichages des trajets
-	   // Contract : aucun
-
-	    void AfficheTrajetPossibleSimple() const;
-	   // Mode d'emploi : Affiche les trajets composés qui satisfont la recherche simple
-	   // Paramètres : aucun
-	   // Contrat : aucun
-
-
-	//-------------------------------------------- Constructeurs - destructeur
-
-	    TrajetCompose (const char * villeDep,const char * villeArr);
-	    // Mode d'emploi : Construit un trajet composé
-	    // Paramètres : 
-	    //    - villeArr est la ville d'arrivée qui sera affectée à l'attribut villeArrivée
-	    //    - villeDep est la ville de départ qui sera affectée à l'attribut villeDépart
-	    // Contrat : aucun
-
-	    virtual ~TrajetCompose ( );
-	    // Mode d'emploi : Détruit le trajet composé
-	    // Paramètres : aucun
-	    // Contrat : aucun
-
+		void AjoutTrajet (Trajet * trajet);
+		//Mode d'emploi : Ajoute un trajet composé
+		// Paramètres :
+		//     - trajet est le trajet composé à ajouter
+		// Contract : aucun
+	
+ 		int GetNbTrajets() const;
+		//Mode d'emploi : Renvoie le nombre actuel de trajets dans le tableau 
+		// Paramètres :aucun
+		// Contract : aucun
+	
+		void AfficherTrajet(int i) const;
+		//Mode d'emploi : Affiche un trajet composé
+		// Paramètres :
+		//     - i est un indice qui permet d'indenter les affichages des trajets
+		// Contract : aucun
+	
+		void AfficheTrajetPossibleSimple() const;
+		// Mode d'emploi : Affiche les trajets composés qui satisfont la recherche simple
+		// Paramètres : aucun
+		// Contrat : aucun
+	
+	
+		//-------------------------------------------- Constructeurs - destructeur
+	
+		TrajetCompose (const char * villeDep,const char * villeArr);
+		// Mode d'emploi : Construit un trajet composé
+		// Paramètres : 
+		//    - villeArr est la ville d'arrivée qui sera affectée à l'attribut villeArrivée
+		//    - villeDep est la ville de départ qui sera affectée à l'attribut villeDépart
+		// Contrat : aucun
+	
+		virtual ~TrajetCompose ( );
+		// Mode d'emploi : Détruit le trajet composé
+		// Paramètres : aucun
+		// Contrat : aucun
+	
 	//------------------------------------------------------------------ PROTEGE
-
+	
 	protected:
+	
+		//----------------------------------------------------- Attributs protégés
 
-	//----------------------------------------------------- Attributs protégés
-
-	Trajet ** tabTrajetsSimpleEtCompose; //Le tableau contenant des pointeurs sur des trajets simples et des trajets composés
-	int tailleTC; //La taille actuelle du tableau tabTrajetsSimpleEtCompose
-	int nbTrajetsTC; // Le nombre actuel de trajets contenus dans le tableau tabTrajetsSimpleEtCompose
+		Trajet ** tabTrajetsSimpleEtCompose; //Le tableau contenant des pointeurs sur des trajets simples et des trajets composés
+		int tailleTC; //La taille actuelle du tableau tabTrajetsSimpleEtCompose
+		int nbTrajetsTC; // Le nombre actuel de trajets contenus dans le tableau tabTrajetsSimpleEtCompose
 
 };
 

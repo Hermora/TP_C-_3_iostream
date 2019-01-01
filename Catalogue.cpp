@@ -42,11 +42,13 @@ void Catalogue::ecritureDansFichier(int choix, string cheminFic)
 	}
 	if (nbTrajetsC!=0)
 	{
+		int j=0;
 		if (choix==1) // sauvegarde de tout
 		{
-			for (int i=0; i<nbTrajetsC; i++)
+			for (int i=0 ; i<nbTrajetsC ; i++)
 			{
-				fichier << i+1 << ",";
+				j++;
+				fichier << j << ",";
 				tabTrajetCatalogue[i]->ecrire(fichier);
 			}	
 		}
@@ -60,11 +62,14 @@ void Catalogue::ecritureDansFichier(int choix, string cheminFic)
 				cout << "caractère non reconnu, recommencez svp :" << endl;
 				cin >> resp;
 			}
-			if (resp=='S')
+			for (int i=0 ; i<nbTrajetsC ; i++)
 			{
-			}
-			else if (resp=='C')
-			{
+				if (tabTrajetCatalogue[i]->type == resp)
+				{
+					j++;
+					fichier << j << ",";
+					tabTrajetCatalogue[i]->ecrire(fichier);
+				}
 			}
 		}
 		else if (choix==3) //sauvegarde selon la ville d'arrivée et/ou de départ
@@ -125,15 +130,14 @@ void Catalogue::ecritureDansFichier(int choix, string cheminFic)
 				cout << "elle a été remplacée par " << nbTrajetsC << endl;
 				borneSup = nbTrajetsC;
 			}
-			int j=1;
 			for (int i=borneInf-1; i<borneSup; i++)
 			{
-				fichier << j << ",";
 				j++;
+				fichier << j << ",";
 				tabTrajetCatalogue[i]->ecrire(fichier);
 			}
 		}
-		cout << "Trajet(s) sauvegardé(s) avec succès ! " << endl;
+		cout << j << " trajet(s) sauvegardé(s) avec succès ! " << endl;
 	} 
 	else
 		cout << "Le catalogue actuel ne contient aucun trajets, sauvegarde impossible" << endl;

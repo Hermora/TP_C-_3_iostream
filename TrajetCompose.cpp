@@ -115,6 +115,7 @@ TrajetCompose::TrajetCompose (const char * villeDep, const char * villeArr)
 	tabTrajetsSimpleEtCompose = new Trajet* [TAILLE];
 	tailleTC = TAILLE;
 	nbTrajetsTC = 0;
+	type = 'C';
 	#ifdef MAP
 	    cout << "Appel au constructeur de <TrajetCompose>" << endl;
 	#endif
