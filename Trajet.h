@@ -6,6 +6,8 @@
     e-mail               : andrea.croc@insa-lyon.fr and sophie.laboucheix@insa-lyon.fr
 *************************************************************************/
 
+#define _CRT_SECURE_NO_WARNINGS
+
 //---------- Interface de la classe <Trajet> (fichier Trajet.h) ----------------
 #if ! defined ( TRAJET_H )
 #define TRAJET_H
@@ -32,7 +34,7 @@ class Trajet
 		//----------------------------------------------------- Méthodes publiques
 		
 
-		virtual void ecrire(ofstream& fichier);
+		virtual void Ecrire(ofstream& fichier);
 		// Mode d'emploi : écrit les villes de départ et d'arrivée du trajet
 		// dans le fichier passé en paramètre
 		// Paramètre :
