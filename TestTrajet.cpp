@@ -335,7 +335,7 @@ int main ()
 				cout << "" << endl;
 			}
 
-			catalogue->ecritureDansFichier(choice, cheminFic);
+			catalogue->EcritureDansFichier(choice, cheminFic);
 		}
 		else if (choix == 7) //Lecture dans un fichier
 		{
@@ -350,7 +350,7 @@ int main ()
 			affichageMenuLecture();
 
 			cin >> choixLect;
-			cout << "" << endl;
+			//cout << "" << endl;
 			
 			//Si l'utilisateur ne rentre pas un entier, il y a une erreur
 			//on lui demande donc de nouveau l'option qu'il souhaite
@@ -371,14 +371,7 @@ int main ()
 					int nbTrajet = catalogue->LectureToutTrajetFichier(cheminFichier);
 
 					cout << "" << endl;
-					if (nbTrajet > 1)
-					{
-						cout << nbTrajet << " trajets ont été ajouté au catalogue" << endl;
-					}
-					else
-					{
-						cout << nbTrajet << " trajet a été ajouté au catalogue" << endl;
-					}
+					cout << nbTrajet << " trajets ajouté(s) au catalogue" << endl;
 						
 				}
 				else if (choixLect == 2) //Lecture selon un type de trajet dans un fichier
@@ -393,14 +386,7 @@ int main ()
 					cout << "" << endl;
 					int nbTrajet = catalogue->LectureChoixTypeTrajetFichier(cheminFichier,type);
 					
-					if (nbTrajet > 1)
-					{
-						cout << nbTrajet << " trajets ont été ajouté au catalogue" << endl;
-					}
-					else
-					{
-						cout << nbTrajet << " trajet a été ajouté au catalogue" << endl;
-					}
+					cout << nbTrajet << " trajets ajouté(s) au catalogue" << endl;
 						
 				}
 				else if (choixLect == 3) //Lecture des trajets dans un fichier selon la ville d'arrivée et/ou de depart 
@@ -416,14 +402,7 @@ int main ()
 					int nbTrajet = catalogue->LectureChoixVilleTrajetFichier(cheminFichier, option);
 
 					cout << "" << endl;
-					if (nbTrajet > 1)
-					{
-						cout << nbTrajet << " trajets ont été ajouté au catalogue" << endl;
-					}
-					else
-					{
-						cout << nbTrajet << " trajet a été ajouté au catalogue" << endl;
-					}
+					cout << nbTrajet << " trajets ajouté(s) au catalogue" << endl;
 				}
 				else if (choixLect == 4) //Lecture dans un fichier d'une selection de trajets compris dans un intervalle
 				{
@@ -456,14 +435,7 @@ int main ()
 
 					int nbTrajet = catalogue->LectureIntervalleTrajetFichier(cheminFichier,borneI,borneS);
 					
-					if (nbTrajet > 1)
-					{
-						cout << nbTrajet << " trajets ont été ajouté au catalogue" << endl;
-					}
-					else
-					{
-						cout << nbTrajet << " trajet a été ajouté au catalogue" << endl;
-					}
+					cout << nbTrajet << " trajets ajouté(s) au catalogue" << endl;
 				}
 				else  //Si la donnée entrée n'est pas correcte
 				{
