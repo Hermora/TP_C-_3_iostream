@@ -28,16 +28,18 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-void Catalogue::ecritureDansFichier(int choix, string cheminFic)
+void Catalogue::EcritureDansFichier(int choix, string cheminFic)
 // Algorithme : sauvegarde dans un fichier, dont le chemin est en paramètre,
 // les trajets du catalogue, avec un critère de sélection si besoin.
 {
 	ofstream fichier;
-	fichier.open(cheminFic.c_str(), ios::out | ios::trunc); // ouverture du fichier en mode écriture, en tronquant le contenu du fichier si il y en a un
+	
+	// Ouverture du fichier en mode écriture, en tronquant le contenu du fichier si il y en a un
+	fichier.open(cheminFic.c_str(), ios::out | ios::trunc); 
 
 	while(!fichier)
 	{
-		cout << "erreur à l'ouverture du fichier, essayez de nouveau :" << endl;
+		cout << "Erreur à l'ouverture du fichier, essayez de nouveau :" << endl;
 		cin >> cheminFic;
 		cout << "" << endl;
 		fichier.open(cheminFic.c_str(), ios::out | ios::trunc);
@@ -53,17 +55,17 @@ void Catalogue::ecritureDansFichier(int choix, string cheminFic)
 			{
 				j++;
 				fichier << j << ",";
-				tabTrajetCatalogue[i]->ecrire(fichier);
+				tabTrajetCatalogue[i]->Ecrire(fichier);
 			}	
 		}
 		else if (choix==2) //sauvegarde selon le type de trajets
 		{
-			cout << "Quel type de trajets voulez vous sauvegarder? Simple(S) ou Composé(C)?" << endl;
+			cout << "Quel type de trajets voulez vous sauvegarder : Simple(S) ou Composé(C)?" << endl;
 			char resp;
 			cin >> resp;
 			while (resp!='S' && resp!='C')
 			{
-				cout << "caractère non reconnu, recommencez svp :" << endl;
+				cout << "Caractère non reconnu, recommencez svp :" << endl;
 				cin >> resp;
 			}
 			for (int i=0 ; i<nbTrajetsC ; i++)
@@ -72,7 +74,7 @@ void Catalogue::ecritureDansFichier(int choix, string cheminFic)
 				{
 					j++;
 					fichier << j << ",";
-					tabTrajetCatalogue[i]->ecrire(fichier);
+					tabTrajetCatalogue[i]->Ecrire(fichier);
 				}
 			}
 		}
@@ -94,7 +96,7 @@ void Catalogue::ecritureDansFichier(int choix, string cheminFic)
 					{
 						j++;
 						fichier << j <<",";
-						tabTrajetCatalogue[i]->ecrire(fichier);
+						tabTrajetCatalogue[i]->Ecrire(fichier);
 					}
 				}
 			}
@@ -106,7 +108,7 @@ void Catalogue::ecritureDansFichier(int choix, string cheminFic)
 					{
 						j++;
 						fichier << j << ",";
-						tabTrajetCatalogue[i]->ecrire(fichier);
+						tabTrajetCatalogue[i]->Ecrire(fichier);
 					}
 				}
 			}
@@ -118,14 +120,14 @@ void Catalogue::ecritureDansFichier(int choix, string cheminFic)
 					{
 						j++;
 						fichier << j << ",";
-						tabTrajetCatalogue[i]->ecrire(fichier);
+						tabTrajetCatalogue[i]->Ecrire(fichier);
 					}
 				}
 			}
 		}
 		else if (choix==4) //sauvegarde dans un intervalle défini
 		{
-			cout << "entrez la borne inférieure de votre intervalle de sélection :" << endl;
+			cout << "Entrez la borne inférieure de votre intervalle de sélection :" << endl;
 			int borneInf;
 			cin >> borneInf;
 			while (cin.fail())
@@ -174,13 +176,15 @@ void Catalogue::ecritureDansFichier(int choix, string cheminFic)
 			{
 				j++;
 				fichier << j << ",";
-				tabTrajetCatalogue[i]->ecrire(fichier);
+				tabTrajetCatalogue[i]->Ecrire(fichier);
 			}
 		}
 		cout << j << " trajet(s) sauvegardé(s) avec succès ! " << endl;
 	} 
 	else
+	{
 		cout << "Le catalogue actuel ne contient aucun trajets, sauvegarde impossible" << endl;
+	}
 	fichier.close();
 
 }// -- Fin de EcritureDansUnFichier
