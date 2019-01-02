@@ -8,7 +8,7 @@
 
 
 //---------- Réalisation de la classe <Catalogue> (fichier Catalogue.cpp) ------------
-#define _CRT_SECURE_NO_WARNINGS
+
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
