@@ -6,6 +6,7 @@
     e-mail               : andrea.croc@insa-lyon.fr and sophie.laboucheix@insa-lyon.fr
 *************************************************************************/
 
+
 //---------- Interface de la classe <TrajetSimple> (fichier TrajetSimple.h) ----------------
 #if ! defined ( TRAJETSIMPLE_H )
 #define TRAJETSIMPLE_H
@@ -41,7 +42,7 @@ class TrajetSimple : public Trajet
 
 		//----------------------------------------------------- Méthodes publiques
 	
-		void ecrire(ofstream& fichier);
+		void Ecrire(ofstream& fichier);
 		// Mode d'emploi : rajoute les informations manquantes du trajet simple
 		// au fichier passé en paramètre
 		// Paramètres :
