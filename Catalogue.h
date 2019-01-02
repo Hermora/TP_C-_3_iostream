@@ -64,7 +64,7 @@ class Catalogue
 		//   - contientTrajet compte le nombre de possibilités de trajets
 		// Contrat : aucun
 
-		void ecritureDansFichier(int choix, string cheminFic);
+		void EcritureDansFichier(int choix, string cheminFic);
 		// Mode d'emploi : Sauvegarde dans un fichier déjà existant ou non (dans ce cas le programme
 		// crée le fichier) les trajets, ou une sélection de trajets, présents dans le catalogue
 		// Paramètre :
