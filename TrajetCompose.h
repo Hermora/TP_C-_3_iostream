@@ -6,7 +6,6 @@
     e-mail               : andrea.croc@insa-lyon.fr and sophie.laboucheix@insa-lyon.fr
 *************************************************************************/
 
-
 //---------- Interface de la classe <TrajetCompose> (fichier TrajetCompose.h) ----------------
 #if ! defined ( TRAJETCOMPOSE_H )
 #define TRAJETCOMPOSE_H
@@ -33,7 +32,7 @@ class TrajetCompose : public Trajet
 	public:
 	//----------------------------------------------------- Méthodes publiques
 	   
-		void ecrire(ofstream& fichier);
+		void Ecrire(ofstream& fichier);
 		// Mode d'emploi : rajoute les informations manquantes sur le trajet composé
 		// au fichier en paramètre
 		// Paramètres : 
