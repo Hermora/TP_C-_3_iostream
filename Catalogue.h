@@ -5,7 +5,6 @@
     copyright            : (C) 2018 par Andréa CROC and Sophie LABOUCHEIX
     e-mail               : andrea.croc@insa-lyon.fr and sophie.laboucheix@insa-lyon.fr
 *************************************************************************/
-#define _CRT_SECURE_NO_WARNINGS
 
 //---------- Interface de la classe <Catalogue> (fichier Catalogue.h) ----------------
 #if ! defined ( CATALOGUE_H )
