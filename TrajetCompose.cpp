@@ -6,7 +6,6 @@
     e-mail               : andrea.croc@insa-lyon.fr and sophie.laboucheix@insa-lyon.fr
 *************************************************************************/
 
-
 //---------- Réalisation de la classe <TrajetCompose> (fichier TrajetCompose.cpp) ------------
 
 //---------------------------------------------------------------- INCLUDE
@@ -27,7 +26,7 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-void TrajetCompose::ecrire(ofstream& fichier)
+void TrajetCompose::Ecrire(ofstream& fichier)
 // Algorithme :
 // Ecrit le type du trajet, puis les villes de départ et d'arrivée à l'aide de la 
 // méthode de Trajet, puis le nombre de trajets simples dans le trajet composé suivi
@@ -35,13 +34,13 @@ void TrajetCompose::ecrire(ofstream& fichier)
 // d'écriture dans le fichier.
 {
 	fichier << "C,";
-	Trajet::ecrire(fichier);
+	Trajet::Ecrire(fichier);
 	fichier << nbTrajetsTC << endl;
 	for(int j=0; j<nbTrajetsTC; j++)
 	{
-		tabTrajetsSimpleEtCompose[j]->ecrire(fichier);
+		tabTrajetsSimpleEtCompose[j]->Ecrire(fichier);
 	}
-}
+} //---- fin de Ecrire
 
 void TrajetCompose::AfficherTrajet(int i) const
 // Algorithme :
