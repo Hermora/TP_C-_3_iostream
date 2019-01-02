@@ -20,16 +20,16 @@ using namespace std;
 //------------------------------------------------------ Include personnel
 #include "TrajetSimple.h"
 
-void TrajetSimple::ecrire(ofstream& fichier)
+void TrajetSimple::Ecrire(ofstream& fichier)
 // Algorithme : 
 // Place le type de trajets en début de ligne, puis les villes de départ
-// et d'arrivée grâce à la méthode de trajets, puis ajoute le moyen de transport
+// et d'arrivée grâce à la méthode de Trajet, puis ajoute le moyen de transport
 // et fait un retour à la ligne
 {
 	fichier << "S,";
-	Trajet::ecrire(fichier);
+	Trajet::Ecrire(fichier);
 	fichier << moyenTransport << endl;
-}
+} // ---- fin de Ecrire
 
 void TrajetSimple::AfficheTrajetPossibleSimple() const
 // Algorithme :
