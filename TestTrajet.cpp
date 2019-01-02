@@ -9,7 +9,6 @@
 
 //---------- Réalisation du module <TestTrajet> (fichier TestTrajet.cpp) ---------------
 
-#define _CRT_SECURE_NO_WARNINGS
 /////////////////////////////////////////////////////////////////  INCLUDE
 //-------------------------------------------------------- Include système
 using namespace std;
