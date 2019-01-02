@@ -5,7 +5,7 @@
     copyright            : (C) 2018 par Andréa CROC and Sophie LABOUCHEIX
     e-mail               : andrea.croc@insa-lyon.fr and sophie.laboucheix@insa-lyon.fr
 *************************************************************************/
-
+#define _CRT_SECURE_NO_WARNINGS
 //---------- Réalisation du module <Trajet> (fichier Trajet.cpp) ---------------
 
 /////////////////////////////////////////////////////////////////  INCLUDE
@@ -22,12 +22,12 @@ using namespace std;
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
 
-void Trajet::ecrire(ofstream& fichier)
+void Trajet::Ecrire(ofstream& fichier)
 // Algorithme :
 // Rien à préciser
 {
 	fichier << villeDepart << "," << villeArrivee << ",";
-}
+} //----- fin de Ecrire
 
 void Trajet::AfficheTrajetPossibleSimple() const
 // Algorithme :
