@@ -50,16 +50,16 @@ class Catalogue
 		// Mode d'emploi : Fait une recherche simple sur le catalogue
 		// Paramètres : 
 		//   - villeDepart est la ville de départ de la recherche simple
-        	//   - villeArrivee est la ville d'arrivée de la recherche simple
+        //   - villeArrivee est la ville d'arrivée de la recherche simple
 		// Contrat : aucun
 
 		int RechercheComplete (const char * villeDepart, const char * villeArrivee, Trajet ** enchainementsPossible, int caseSuivante, int * contientTrajet) const;
 		// Mode d'emploi : Fait une recherche complète sur le catalogue
 		// Paramètres : 
 		//   - villeDepart est la ville de départ de la recherche complète
-        	//   - villeArrivee est la ville d'arrivée de la recherche complète
+        //   - villeArrivee est la ville d'arrivée de la recherche complète
 		//   - enchainementsPossible contient les trajets possibles qui vérifient la recherche complète
-        	//   - caseSuivante l'indice de la case suivante à complétée dans le tableau enchainementsPossible
+        //   - caseSuivante l'indice de la case suivante à complétée dans le tableau enchainementsPossible
 		//   - contientTrajet compte le nombre de possibilités de trajets
 		// Contrat : aucun
 
@@ -73,10 +73,10 @@ class Catalogue
 
 		int LectureToutTrajetFichier(string cheminFichier);
 		// Mode d'emploi : Recupère les trajets qui sont dans le fichier   
-        	// dont le chemin d'accès est donné en paramètre
+        // dont le chemin d'accès est donné en paramètre
 		// Paramètre :
 		// - cheminFichier est le chemin d'accès du fichier à lire
-        	// Contrat : aucun
+        // Contrat : aucun
 
 		int LectureChoixTypeTrajetFichier(string cheminFichier, string type);
 		// Mode d'emploi : Recupère le chemin d'accès du fichier et le type de trajet 
@@ -86,13 +86,13 @@ class Catalogue
 		// - type est le type de trajet que l'utilisateur veut récupérer soit simple soit composé
 		// Contrat : aucun
 
-        	int LectureTypeTrajetFichier(string cheminFichier, string type);
+        int LectureTypeTrajetFichier(string cheminFichier, string type);
 		// Mode d'emploi : Recupère seulement les trajets simples ou composés qui sont dans le fichier   
-        	// dont le chemin d'accès est donné en paramètre
+        // dont le chemin d'accès est donné en paramètre
 		// Paramètres :
 		// - cheminFichier est le chemin d'accès du fichier à lire
 		// - type est le type de trajet que l'utilisateur veut récupérer soit simple soit composé
-        	// Contrat : aucun
+        // Contrat : aucun
 
 		int LectureChoixVilleTrajetFichier(string cheminFichier, string option);
 		// Mode d'emploi : Recupère le chemin d'accès du fichier à lire et l'option choisie par l'utilisateur  
